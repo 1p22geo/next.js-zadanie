@@ -5,7 +5,7 @@ export default function component(props){
     let elements = [];
     for(let n = 0; n<props.amount; n++){
         elements.push(
-            <div key={n+2} className=" text-slate-50">
+            <div key={n+2} className=" text-slate-50 hover:bg-white">
                 <h4>Element</h4>
                 <input className="bg-gray-400 text-black m-4"/>
             </div>

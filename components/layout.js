@@ -1,7 +1,16 @@
 import React from 'react';
 import component from '../components/component'
 
-export default function Layout({ children }) {
-    return React.createElement(component, {amount:4});
+export default class Layout2 extends React.Component{
+  constructor(props){
+    super(props);
+    this.state = {colorcode:1}
   }
+  render(){
+    return React.createElement(component, {amount:this.state.colorcode});
+  }
+  click(){
+    this.setState({colorcode:this.colorcode+1})
+  }
+}
   
