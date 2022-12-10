@@ -13,13 +13,16 @@ export default function component(props){
     setCount(count + 1);
   };
     let elements = [];
-    for(let n = 0; n<count; n++){
-        elements.push(
-            <div onClick={handleClick} key={n+2} className=" text-slate-50 hover:bg-slate-400 rounded-xl">
-                <h4>{props.title}</h4>
-                <p>{props.text}</p>
-            </div>
-        );
+
+    for (let n = 0; n < props.records.length; n++) {
+      const record = props.records[n];
+      elements.push(
+        <div onClick={handleClick} key={n+2} className=" text-slate-50 hover:bg-slate-400 rounded-xl p-3">
+            <h4>{record.title}</h4>
+            <p>{record.text}</p>
+        </div>
+    );
+      
     }
     let a = React.createElement("div", {className:"rounded-xl bg-slate-500 mt-10"}, elements);
     
