@@ -16,8 +16,8 @@ export default function component(props){
     for(let n = 0; n<count; n++){
         elements.push(
             <div onClick={handleClick} key={n+2} className=" text-slate-50 hover:bg-slate-400 rounded-xl">
-                <h4>Element</h4>
-                <input className="bg-gray-400 text-black m-4 hover:bg-gray-600 hover:text-gray-100"/>
+                <h4>{props.title}</h4>
+                <p>{props.text}</p>
             </div>
         );
     }
