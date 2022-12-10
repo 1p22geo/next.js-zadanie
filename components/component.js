@@ -1,16 +1,27 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
+import {useEffect, useState} from 'react';
 
 export default function component(props){
+    const [count, setCount] = useState(1);
+
+  useEffect(() => {
+    console.log('Count is now: ', count);
+  }, [count]);
+
+  const handleClick = event => {
+    setCount(count + 1);
+  };
     let elements = [];
-    for(let n = 0; n<props.amount; n++){
+    for(let n = 0; n<count; n++){
         elements.push(
-            <div key={n+2} className=" text-slate-50 hover:bg-white">
+            <div onClick={handleClick} key={n+2} className=" text-slate-50 hover:bg-slate-400 rounded-xl">
                 <h4>Element</h4>
-                <input className="bg-gray-400 text-black m-4"/>
+                <input className="bg-gray-400 text-black m-4 hover:bg-gray-600 hover:text-gray-100"/>
             </div>
         );
     }
     let a = React.createElement("div", {className:"rounded-xl bg-slate-500 mt-10"}, elements);
+    
     return a;
 }
