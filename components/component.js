@@ -1,17 +1,7 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
-import {useEffect, useState} from 'react';
 
 export default function component(props){
-    const [count, setCount] = useState(1);
-
-  useEffect(() => {
-    console.log('Count is now: ', count);
-  }, [count]);
-
-  const handleClick = event => {
-    setCount(count + 1);
-  };
     let elements = [];
 
     for (let n = 0; n < props.records.length; n++) {
