@@ -6,11 +6,17 @@ import mysql from 'mysql';
 
 const db = mysql.createConnection({
     host: 'localhost',
+    port:'3306',
     database: 'test',
     user: 'root',
     password: ''
 });
 
+let global_state = {records:[]};
+async function a(){
+  console.log(await excuteQuery({query:'SHOW TABLES'}));
+}
+a();
 export default class Layout2 extends React.Component{
   constructor(props){
     super(props);
@@ -18,23 +24,6 @@ export default class Layout2 extends React.Component{
   }
   render(){
     return React.createElement(component, this.state);
-  }
-  async componentDidUpdate(){
-    await this.a();
-  }
-  async a(){
-    console.log('a');
-    let newTable = [];
-    var result = excuteQuery('show tables')
-    console.log(result);
-      
-    for (let n = 0; n < result.length; n++) {
-      const table = result[n];
-      //console.log(table.Tables_in_test)
-      newTable.push('a');
-    }
-    //console.log(newTable);
-    this.setState({records:newTable});
   }
 }
 async function excuteQuery({ query, values }) {
