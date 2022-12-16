@@ -7,7 +7,7 @@ export default function component(props){
     for (let n = 0; n < props.records.length; n++) {
       const record = props.records[n];
       elements.push(
-        <div onClick={handleClick} key={n+2} className=" text-slate-50 hover:bg-slate-400 rounded-xl p-3">
+        <div key={n+2} className=" text-slate-50 hover:bg-slate-400 rounded-xl p-3">
             <h4>{record.title}</h4>
             <p>{record.text}</p>
         </div>

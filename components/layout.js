@@ -2,16 +2,13 @@ import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import component from './component.js'
 
-import mysql from 'serverless-mysql';
+import mysql from 'mysql';
 
-const db = mysql({
-  config: {
+const db = mysql.createConnection({
     host: 'localhost',
-    port: '3306',
     database: 'test',
     user: 'root',
     password: ''
-  }
 });
 
 export default class Layout2 extends React.Component{
@@ -20,21 +17,23 @@ export default class Layout2 extends React.Component{
     this.state = {records:[]}
   }
   render(){
-    this.a();
     return React.createElement(component, this.state);
+  }
+  async componentDidUpdate(){
+    await this.a();
   }
   async a(){
     console.log('a');
     let newTable = [];
-    var result = await excuteQuery({
-      query:"SHOW TABLES"
-    })
+    var result = excuteQuery('show tables')
     console.log(result);
       
     for (let n = 0; n < result.length; n++) {
       const table = result[n];
-      newTable.push({title:table.Tables_in_test, text:"text"});
+      //console.log(table.Tables_in_test)
+      newTable.push('a');
     }
+    //console.log(newTable);
     this.setState({records:newTable});
   }
 }
