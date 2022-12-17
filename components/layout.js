@@ -11,12 +11,18 @@ const db = mysql.createConnection({
     user: 'root',
     password: ''
 });
+let a = executeQuery('SHOW TABLES;');
+a.then(
+(res)=>{console.log(res)},
+(err)=>{console.log(err)}
+)
+a = executeQuery('SHOW TABLES;');
+a.then(
+(res)=>{console.log(res)},
+(err)=>{console.log(err)}
+)
 
-let global_state = {records:[]};
-async function a(){
-  console.log(await excuteQuery({query:'SHOW TABLES'}));
-}
-a();
+
 export default class Layout2 extends React.Component{
   constructor(props){
     super(props);
@@ -26,11 +32,16 @@ export default class Layout2 extends React.Component{
     return React.createElement(component, this.state);
   }
 }
-async function excuteQuery({ query, values }) {
+async function executeQuery(query) {
   try {
-    const results = await db.query(query, values);
-    await db.end();
-    return results;
+    let r = 2;
+    const results = await db.query(query, 
+      function (err, result, fields) {
+      if (err) throw err;
+      r = result;
+    });
+    //await db.end();
+    return r;
   } catch (error) {
     return { error };
   }
