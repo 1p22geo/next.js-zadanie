@@ -10,6 +10,7 @@ export default async function handler(req, res) {
   const collection = db.collection('test');
 
   const findResult = await collection.find({}).toArray();
-
+  client.close()
+  
   res.status(200).json({ result: findResult })
-  }
+}
