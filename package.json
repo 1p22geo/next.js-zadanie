@@ -6,13 +6,14 @@
     "start": "next start"
   },
   "dependencies": {
+    "dns": "^0.2.2",
     "fs": "^0.0.1-security",
+    "mongodb": "^4.12.1",
     "mysql": "^2.18.1",
     "net": "^1.0.2",
     "next": "latest",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "serverless-mysql": "^1.5.4",
     "tls": "^0.0.1"
   },
   "devDependencies": {
