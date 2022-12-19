@@ -7,12 +7,18 @@ export default class Layout2 extends React.Component{
     super(props);
     this.state = {records:[]}
   }
+
   render(){
-    return <div className='p-10' onClick={this.a}>{React.createElement(component, this.state)}</div>//React.createElement(component, this.state);
+    return React.createElement(component, this.state)//React.createElement(component, this.state);
+  }
+  componentDidMount(){
+    this.a()
   }
   async a(){
     const response = await fetch("/api/get", {
-      method: "GET"});
+      method: "POST",
+      body:JSON.stringify({age:{$gte:30}})
+  });
     let json_response = await response.json();
     let arr = [];
     for (let n = 0; n < json_response.result.length; n++) {
