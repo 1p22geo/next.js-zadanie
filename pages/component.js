@@ -9,14 +9,14 @@ export default function component(props){
     for (let n = 0; n < props.records.length; n++) {
       const record = props.records[n];
       elements.push(
-        <div key={n+2} className=" text-slate-50 hover:bg-slate-400 rounded-xl p-3 px-14">
+        <div key={n+2} className=" hover:bg-[#FCA311] rounded-xl p-3 px-14">
             <h4>{record.title}</h4>
             <p>{record.text}</p>
         </div>
     );
       
     }
-    let a = React.createElement("div", {className:"rounded-xl bg-slate-500 mt-10"}, elements);
+    let a = React.createElement("div", {className:"rounded-xl bg-[#E5E5E5] mt-10"}, elements);
     
     return a;
 }

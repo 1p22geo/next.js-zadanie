@@ -1,6 +1,8 @@
 import * as React from 'react'
 import component from './component.js'
-
+function getRandomInt(min, max) {
+  return min + Math.floor(Math.random() * (max-min));
+}
 export default class Layout2 extends React.Component{
   constructor(props){
     super(props);
@@ -82,7 +84,7 @@ export default class Layout2 extends React.Component{
     setTimeout(()=>{this.setState({
       records:arr,
       working:false
-    });}, 100)
+    });}, 200)
     //fetch('/api/get').then(response => response.json()).then(data => console.log(data));
     }
 }

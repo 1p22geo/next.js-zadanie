@@ -2,7 +2,7 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Layout2 from './layout.js'
 /*
-<form className='p-5 mt-10 bg-slate-500 rounded-xl'>
+<form className='p-5 mt-10 bg-[#E5E5E5] rounded-xl'>
   Gt<input type={'radio'} id={'button1'} name={'buttons'} value={'1'}/><br/>
   Lt<input type={'radio'} id={'button2'} name={'buttons'} value={'2'}/><br/>
   All<input type={'radio'} id={'button3'} name={'buttons'} value={'3'}/><br/>
@@ -10,37 +10,37 @@ import Layout2 from './layout.js'
 */
 const Home: NextPage = () => {
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center py-2 bg-sky-200">
+    <div className="flex min-h-screen flex-col items-center justify-center py-2 bg-[#000000]">
       <Head>
         <title>Create Next App</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main className="flex w-full flex-1 flex-col items-center justify-center px-20 text-center">
-        <h1 className="text-6xl font-bold">
+        <h1 className="text-6xl font-bold bg-[#14213D] p-5 w-full mt-12 rounded-2xl text-[#E5E5E5]">
           Database connection
         </h1>
 
         
 
-        <form className='p-5 mt-10 bg-slate-500 rounded-xl'>
+        <form className='p-5 mt-10 bg-[#E5E5E5] rounded-xl'>
         <h1 className="text-2xl font-bold mb-3">
           Search users with age between:
         </h1>
-          <p className='p-2'>Min: <input className='p-1 bg-slate-400 text-white ml-1' type={'text'} id={'min'} name={'min'}/><br/></p>
-          <p className='p-2'>Max: <input className='p-1 bg-slate-400 text-white ml-1' type={'text'} id={'max'} name={'max'}/><br/></p>
+          <p className='p-2'>Min: <input className='p-1 bg-slate-400 text-white ml-1 focus:bg-[#FCA311]' type={'text'} id={'min'} name={'min'}/><br/></p>
+          <p className='p-2'>Max: <input className='p-1 bg-slate-400 text-white ml-1 focus:bg-[#FCA311]' type={'text'} id={'max'} name={'max'}/><br/></p>
         </form>
 
         <Layout2/>
-        <div className='p-5 mt-10 bg-slate-500 rounded-xl'>
+        <div className='p-5 mt-10 bg-[#E5E5E5] rounded-xl'>
         <h1 className="text-2xl font-bold mb-3">
           Add another user:
         </h1>
         <form>
-          <p className='p-2'>Name: <input className='p-1 bg-slate-400 text-white ml-1' type={'text'} id={'Name'} name={'Name'}/><br/></p>
-          <p className='p-2'>Age: <input className='p-1 bg-slate-400 text-white ml-1' type={'text'} id={'Age'} name={'Age'}/><br/></p>
+          <p className='p-2'>Name: <input className='p-1 bg-slate-400 text-white ml-1 focus:bg-[#FCA311]' type={'text'} id={'Name'} name={'Name'}/><br/></p>
+          <p className='p-2'>Age: <input className='p-1 bg-slate-400 text-white ml-1 focus:bg-[#FCA311]' type={'text'} id={'Age'} name={'Age'}/><br/></p>
         </form>
-          <button className='bg-slate-50 rounded-md p-1 active:bg-slate-300' onClick={()=>{
+          <button className='bg-[#FCA311] rounded-md p-1 active:bg-slate-300' onClick={()=>{
             let nameInput = document.getElementById('Name') as HTMLInputElement;
             let name;
             if(nameInput){
