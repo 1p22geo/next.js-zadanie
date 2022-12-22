@@ -2,7 +2,7 @@ import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 
 export default function component(props){
-    let elements = [<h1 className="text-2xl font-bold mb-3 pt-5">
+    let elements = [<h1 key={1} className="text-2xl font-bold mb-3 pt-5">
     Results:
   </h1>];
 

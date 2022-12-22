@@ -7,7 +7,7 @@ export default async function handler(req, res) {
   const dbName = 'test';
 
   await client.connect();
-  console.log('Connected successfully to server');
+  //console.log('Connected successfully to server');
   const db = client.db(dbName);
   const collection = db.collection('test');
 
