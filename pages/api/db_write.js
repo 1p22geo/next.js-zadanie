@@ -13,7 +13,7 @@ export default async function handler(req, res) {
 
   //const findResult = await collection.find(body).toArray();
   collection.insertOne(body)
-  client.close()
+  setTimeout(()=>client.close(), 1000);
   
   res.status(200).json({})
 }

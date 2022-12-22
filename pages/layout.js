@@ -9,12 +9,13 @@ export default class Layout2 extends React.Component{
 
   render(){
     if(!(this.state.working)){
-      //this.a()
+      this.a()
     }
     return React.createElement(component, this.state)//React.createElement(component, this.state);
   }
   async a(){
     this.state.working = true;
+    /*
     let radios = document.getElementsByName('buttons');
     let checked = 2
     for (let i = 0; i < radios.length; i++) {
@@ -29,6 +30,39 @@ export default class Layout2 extends React.Component{
     }
     if(checked === 1){
       query = {$lte:30}
+    }*/
+
+    let minInput = document.getElementById('min');
+    let query = {$gte:0}
+    let min;
+    if(minInput){
+      if(minInput.value != ''){
+        min = +minInput.value
+      }
+      else{
+        min = 0
+      }
+    }
+    let maxInput = document.getElementById('max');
+    let max;
+    if(maxInput){
+      if(maxInput.value != ''){
+        max = +maxInput.value
+      }
+      else{
+        max = false;
+      }
+    }
+    if(max === false){
+      query = {
+        $gte:min
+      }
+    }
+    else{
+      query = {
+        $gte:min,
+        $lte:max
+      }
     }
     const response = await fetch("/api/db_read", {
       method: "POST",
