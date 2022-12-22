@@ -31,9 +31,10 @@ export default class Layout2 extends React.Component{
     if(checked === 1){
       query = {$lte:30}
     }*/
-
-    let minInput = document.getElementById('min');
     let query = {$gte:0}
+    try{
+    let minInput = document.getElementById('min');
+    
     let min;
     if(minInput){
       if(minInput.value != ''){
@@ -63,7 +64,8 @@ export default class Layout2 extends React.Component{
         $gte:min,
         $lte:max
       }
-    }
+    }}
+    catch(e){}
     const response = await fetch("/api/db_read", {
       method: "POST",
       body:JSON.stringify({age:query})
