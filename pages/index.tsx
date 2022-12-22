@@ -15,7 +15,35 @@ const Home: NextPage = () => {
           Title
         </h1>
 
+        <form>
+          Gt<input type={'radio'} id={'button1'} name={'buttons'} value={'1'}/><br/>
+          Lt<input type={'radio'} id={'button2'} name={'buttons'} value={'2'}/><br/>
+          All<input type={'radio'} id={'button3'} name={'buttons'} value={'3'}/><br/>
+        </form>
+
         <Layout2/>
+        <form className='pt-10'>
+          Name: <input type={'text'} id={'Name'} name={'Name'}/><br/>
+          Age: <input type={'text'} id={'Age'} name={'Age'}/><br/>
+          </form>
+          <button onClick={()=>{
+            let nameInput = document.getElementById('Name');
+            let name;
+            if(nameInput){
+              name = nameInput.nodeValue
+            }
+            let ageInput = document.getElementById('Age');
+            let age;
+            if(ageInput){
+              age = ageInput.nodeValue
+            }
+            console.log(name, age)
+            fetch("/api/db_write", {
+              method: "POST",
+              body:JSON.stringify({name:name, age:age})
+          })
+          }}>Submit data</button>
+        
       </main>
     </div>
   )
