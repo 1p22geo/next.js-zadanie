@@ -5,7 +5,7 @@ const login = (props) => {
 const [user, setUser] = useState(null);
  
     return (
-        <div className='p-5 mt-10 bg-[#E5E5E5] rounded-xl border-[#FCA311] border-b-8'>
+        <div id='login' className='p-5 mt-10 bg-[#E5E5E5] rounded-xl border-[#FCA311] border-b-8 hidden'>
         <h1>{user===null?'You are not logged in':'Logged in as '+user}</h1>
         <h1 className="text-2xl font-bold mb-3">
           Log in:
@@ -51,6 +51,9 @@ const [user, setUser] = useState(null);
             //let md5 = MD5(password+salt).toString()
             }
         }>Log in</button>
+        <button className='bg-[#FCA311] rounded-md p-1 active:bg-slate-300 ml-5' onClick={()=>{
+            document.getElementById('login').style.display = "none"
+          }}>Cancel</button>
         </div>
     );
 }

@@ -2,6 +2,7 @@ import { randomBytes } from 'crypto'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Login from './login.js'
+import Signin from './signin.js'
 import Layout2 from './layout.js'
 var MD5 = require("crypto-js/md5")
 /*
@@ -14,9 +15,17 @@ var MD5 = require("crypto-js/md5")
 const Home: NextPage = () => {
   return (
     <div className='bg-black'>
-    <div className="text-6xl flex font-bold bg-[#14213D] p-5 w-full text-[#E5E5E5] pb-12 justify-between border-[#FCA311] border-b-8">
-          <h1>Cinema database</h1>
-          <img src='vercel.svg' className='pr-12'/>
+    <div className=" flex font-bold bg-[#14213D] p-5 w-full text-[#E5E5E5] pb-12 justify-between border-[#FCA311] border-b-8">
+          <h1 className='text-6xl'>Cinema database</h1>
+          <div className='self-center'>
+          <button className='bg-[#FCA311] rounded-md px-5 active:bg-slate-300 ml-5 h-10 self-center' onClick={()=>{
+            document.getElementById('login')!.style.display = "block"
+          }}>Log in</button>
+          <button className='bg-[#FCA311] rounded-md px-5 active:bg-slate-300 ml-5 h-10 self-center' onClick={()=>{
+            document.getElementById('signin')!.style.display = "block"
+          }}>Sign in</button>
+          </div>
+          <img src='star.svg' className='h-24 self-center pr-24'/>
     </div>
     
     <div className="flex min-h-screen items-center justify-center bg-[#000000]">
@@ -28,40 +37,11 @@ const Home: NextPage = () => {
       <main className="flex w-full flex-1 flex-col items-center justify-center text-center">
         
       <Login/>
-        
-
+      <Signin/>
                   
-          <div className='p-5 mt-10 bg-[#E5E5E5] rounded-xl border-[#FCA311] border-b-8'>
-        <h1 className="text-2xl font-bold mb-3">
-          Add another user:
-        </h1>
-        <form>
-          <p className='p-2'>Username: <input className='p-1 bg-slate-400 text-white ml-1 focus:bg-[#FCA311]' type={'text'} id={'Username'} name={'Username'}/><br/></p>
-          <p className='p-2'>Password: <input className='p-1 bg-slate-400 text-white ml-1 focus:bg-[#FCA311]' type={'text'} id={'Password'} name={'Password'}/><br/></p>
-        </form>
-          <button className='bg-[#FCA311] rounded-md p-1 active:bg-slate-300' onClick={()=>{
-            let nameInput = document.getElementById('Username') as HTMLInputElement;
-            let name;
-            if(nameInput){
-              name = nameInput.value
-            }
-            let ageInput = document.getElementById('Password') as HTMLInputElement;
-            let password;
-            if(ageInput){
-              password = ageInput.value
-            }
-            let salt = randomBytes(32).toString('hex')
-            let md5 = MD5(password+salt).toString()
-            
-            fetch("/api/add_user", {
-              method: "POST",
-              body:JSON.stringify({name:name, md5:md5, salt:salt})
-          })
-          }}>Submit data</button>
-          </div>
+        
       </main>
     </div>
-    <div className='h-[20rem]'/>
     </div>
   )
 }
