@@ -18,6 +18,7 @@ export default class Layout2 extends React.Component{
   async a(){
     this.state.working = true;
     /*
+    //If I decide to use radio buttons again
     let radios = document.getElementsByName('buttons');
     let checked = 2
     for (let i = 0; i < radios.length; i++) {

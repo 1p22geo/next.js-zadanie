@@ -10,7 +10,6 @@ export default async function handler(req, res) {
   //console.log('Connected successfully to server');
   const db = client.db(dbName);
   const collection = db.collection('test');
-
   //const findResult = await collection.find(body).toArray();
   collection.insertOne(body)
   setTimeout(()=>client.close(), 1000);

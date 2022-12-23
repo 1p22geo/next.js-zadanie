@@ -10,20 +10,24 @@ import Layout2 from './layout.js'
 */
 const Home: NextPage = () => {
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center py-2 bg-[#000000]">
+    <div className='bg-black'>
+    <div className="text-6xl flex font-bold bg-[#14213D] p-5 w-full text-[#E5E5E5] pb-12 justify-between border-[#FCA311] border-b-8">
+          <h1>Database connection</h1>
+          <img src='vercel.svg' className='pr-12'/>
+    </div>
+    
+    <div className="flex min-h-screen items-center justify-center bg-[#000000]">
       <Head>
         <title>Create Next App</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <main className="flex w-full flex-1 flex-col items-center justify-center px-20 text-center">
-        <h1 className="text-6xl font-bold bg-[#14213D] p-5 w-full mt-12 rounded-2xl text-[#E5E5E5]">
-          Database connection
-        </h1>
+      
+      <main className="flex w-full flex-1 flex-col items-center justify-center text-center">
+        
 
         
 
-        <form className='p-5 mt-10 bg-[#E5E5E5] rounded-xl'>
+        <form className='p-5 mt-10 bg-[#E5E5E5] rounded-xl border-[#FCA311] border-b-8'>
         <h1 className="text-2xl font-bold mb-3">
           Search users with age between:
         </h1>
@@ -32,7 +36,7 @@ const Home: NextPage = () => {
         </form>
 
         <Layout2/>
-        <div className='p-5 mt-10 bg-[#E5E5E5] rounded-xl'>
+        <div className='p-5 mt-10 bg-[#E5E5E5] rounded-xl border-[#FCA311] border-b-8'>
         <h1 className="text-2xl font-bold mb-3">
           Add another user:
         </h1>
@@ -60,6 +64,8 @@ const Home: NextPage = () => {
           </div>
         
       </main>
+    </div>
+    <div className='h-[20rem]'/>
     </div>
   )
 }
