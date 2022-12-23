@@ -19,7 +19,7 @@ export default function component(props){
     }
     if(props.records.length === 0){
       elements.push(
-        <div className='flex flex-col  w-full'>
+        <div key={2} className='flex flex-col  w-full'>
         <h1 key={1} className="text-2xl font-bold mb-3 p-5">No matching results found</h1>
         <img src={'vercel.svg'} className={'p-10'}/>
         </div>
