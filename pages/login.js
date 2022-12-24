@@ -1,13 +1,11 @@
-import { useState } from 'react';
 import Router from 'next/router'
 import MD5 from 'crypto-js/md5'
  
 const login = (props) => {
-const [user, setUser] = useState(null);
  
     return (
         <div className='p-5 mt-10 bg-[#E5E5E5] rounded-xl border-[#FCA311] border-b-8'>
-        <h1>{user===null?'You are not logged in':'Logged in as '+user}</h1>
+        
         <h1 className="text-2xl font-bold mb-3">
           Log in:
         </h1>

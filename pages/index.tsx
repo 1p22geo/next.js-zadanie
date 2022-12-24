@@ -2,7 +2,7 @@ import { randomBytes } from 'crypto'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Link from 'next/link.js'
-import Login from './login.js'
+import Movies from './movies.js'
 //import Layout2 from './layout.js'
 var MD5 = require("crypto-js/md5")
 /*
@@ -43,16 +43,17 @@ const Home: NextPage = () => {
           We have good movies
         </h1>
         <p>Yes very good</p>
-        <div className='columns-4 w-96'>
-          <div className='flex flex-col'>
-            <h1>Movie</h1>
-            <img src='movie-play-svgrepo-com.svg'></img>
-          </div>
-          
-        </div>
+        <Movies/>
           
       </div>
-        
+      <div className='p-5 mt-10 bg-[#E5E5E5] rounded-xl border-[#FCA311] border-b-8 flex flex-col'>
+        <h1 className="text-2xl font-bold mb-3">
+          Join the dark side
+        </h1>
+        <p>No references here</p>
+        <Link href="/login_page" className='p-2 self-center bg-[#FCA311] mt-2 rounded-lg'>Log in</Link>
+          
+      </div>
       </main>
     </div>
     <div className='h-[20rem]'/>
