@@ -8,12 +8,28 @@ export default async function handler(req, res) {
   const dbName = 'test';
 
   await client.connect();
-  //console.log('Connected successfully to server');
+  
   const db = client.db(dbName);
   const collection = db.collection('test');
 
-  const findResult = await collection.find(body).toArray();
-  client.close()
+  const findResult = await collection.find(body.query).toArray();
+  const sessions = client.db('cinema').collection('sessions')
+  const session = await sessions.find({session_id:body.session}).toArray()
+  const timestamp = Date.now()
+  let authorised = false;
   
-  res.status(200).json({ result: findResult })
+  if(session.length === 1){
+    
+    if(timestamp - session[0].timestamp <= 120000){
+      
+      authorised = true;
+    }
+  }
+  client.close()
+  if(authorised){
+    res.status(200).json({ result: findResult })
+  }
+  else{
+    res.status(401).json({ result: null })
+  }
 }

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Router from 'next/router'
 import MD5 from 'crypto-js/md5'
  
 const login = (props) => {
@@ -25,27 +26,34 @@ const [user, setUser] = useState(null);
               password = ageInput.value
             }
 
-            let results = await fetch("/api/check_user", {
+            let results = await fetch("/api/fetch_salt", {
                 method: "POST",
-                body:JSON.stringify({name:name})
+                body:JSON.stringify({user:name})
             })
             let r_json = await results.json()
-            let r = r_json.result
-            if(r.length != 1){
+            if(r_json.result === null){return null}
+            let salt = r_json.result
+            /*if(r.length != 1){
                 throw ''
-            }
-            let record = r[0]
-            console.log(record)
-            let salt = record.salt
+            }*/
+            //let record = r[0]
+            //console.log(record)
+            //let salt = record.salt
             let md5 = MD5(password+salt).toString()
 
-            if(md5 === record.md5){
-                console.log('Logged in')
-                setUser(name)
+            let res = await fetch("/api/create_session", {
+                method: "POST",
+                body:JSON.stringify({
+                    user:name,
+                    md5:md5
+                })
+            })
+            let o = await res.json()
+            if(res.status == 201){
+                Router.push('/logged_in?session='+o.session)
             }
             else{
-                console.log('Wrong password or wrong code.')
-                setUser(null)
+                Router.push('/')
             }
             //let salt = randomBytes(32).toString('hex')
             //let md5 = MD5(password+salt).toString()

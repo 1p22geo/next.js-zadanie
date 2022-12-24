@@ -1,8 +1,9 @@
 import { randomBytes } from 'crypto'
 import type { NextPage } from 'next'
 import Head from 'next/head'
+import Link from 'next/link.js'
 import Login from './login.js'
-import Layout2 from './layout.js'
+//import Layout2 from './layout.js'
 var MD5 = require("crypto-js/md5")
 /*
 <form className='p-5 mt-10 bg-[#E5E5E5] rounded-xl'>
@@ -14,8 +15,9 @@ var MD5 = require("crypto-js/md5")
 const Home: NextPage = () => {
   return (
     <div className='bg-black'>
-    <div className="text-6xl flex font-bold bg-[#14213D] p-5 w-full text-[#E5E5E5] pb-12 justify-between border-[#FCA311] border-b-8">
-          <h1>Database connection</h1>
+    <div className="flex font-bold bg-[#14213D] p-5 w-full text-[#E5E5E5] pb-12 justify-between border-[#FCA311] border-b-8">
+          <h1 className="text-6xl">Database connection</h1>
+          <Link href="/login_page" className='text-sky-200 p-2 self-center translate-x-24'>Log in</Link>
           <img src='vercel.svg' className='pr-12'/>
     </div>
     
@@ -27,73 +29,30 @@ const Home: NextPage = () => {
       
       <main className="flex w-full flex-1 flex-col items-center justify-center text-center">
         
-      <Login/>
-        
-
-        <form className='p-5 mt-10 bg-[#E5E5E5] rounded-xl border-[#FCA311] border-b-8'>
+      <div className='p-5 mt-10 bg-[#E5E5E5] rounded-xl border-[#FCA311] border-b-8 flex flex-col'>
         <h1 className="text-2xl font-bold mb-3">
-          Search users with age between:
+          We are the top database company in our company
         </h1>
-          <p className='p-2'>Min: <input className='p-1 bg-slate-400 text-white ml-1 focus:bg-[#FCA311]' type={'text'} id={'min'} name={'min'}/><br/></p>
-          <p className='p-2'>Max: <input className='p-1 bg-slate-400 text-white ml-1 focus:bg-[#FCA311]' type={'text'} id={'max'} name={'max'}/><br/></p>
-        </form>
+        <p>Yes, absolutely</p>
+        <img className='h-24' src='ok-hand-svgrepo-com.svg'></img>
+          
+      </div>
 
-        <Layout2/>
-        <div className='p-5 mt-10 bg-[#E5E5E5] rounded-xl border-[#FCA311] border-b-8'>
+      <div className='p-5 mt-10 bg-[#E5E5E5] rounded-xl border-[#FCA311] border-b-8'>
         <h1 className="text-2xl font-bold mb-3">
-          Add another user:
+          We have good movies
         </h1>
-        <form>
-          <p className='p-2'>Name: <input className='p-1 bg-slate-400 text-white ml-1 focus:bg-[#FCA311]' type={'text'} id={'Name'} name={'Name'}/><br/></p>
-          <p className='p-2'>Age: <input className='p-1 bg-slate-400 text-white ml-1 focus:bg-[#FCA311]' type={'text'} id={'Age'} name={'Age'}/><br/></p>
-        </form>
-          <button className='bg-[#FCA311] rounded-md p-1 active:bg-slate-300' onClick={()=>{
-            let nameInput = document.getElementById('Name') as HTMLInputElement;
-            let name;
-            if(nameInput){
-              name = nameInput.value
-            }
-            let ageInput = document.getElementById('Age') as HTMLInputElement;
-            let age;
-            if(ageInput){
-              age = +ageInput.value
-            }
-            console.log(name, age)
-            fetch("/api/db_write", {
-              method: "POST",
-              body:JSON.stringify({name:name, age:age})
-          })
-          }}>Submit data</button>
+        <p>Yes very good</p>
+        <div className='columns-4 w-96'>
+          <div className='flex flex-col'>
+            <h1>Movie</h1>
+            <img src='movie-play-svgrepo-com.svg'></img>
           </div>
           
-          <div className='p-5 mt-10 bg-[#E5E5E5] rounded-xl border-[#FCA311] border-b-8'>
-        <h1 className="text-2xl font-bold mb-3">
-          Add another user:
-        </h1>
-        <form>
-          <p className='p-2'>Username: <input className='p-1 bg-slate-400 text-white ml-1 focus:bg-[#FCA311]' type={'text'} id={'Username'} name={'Username'}/><br/></p>
-          <p className='p-2'>Password: <input className='p-1 bg-slate-400 text-white ml-1 focus:bg-[#FCA311]' type={'text'} id={'Password'} name={'Password'}/><br/></p>
-        </form>
-          <button className='bg-[#FCA311] rounded-md p-1 active:bg-slate-300' onClick={()=>{
-            let nameInput = document.getElementById('Username') as HTMLInputElement;
-            let name;
-            if(nameInput){
-              name = nameInput.value
-            }
-            let ageInput = document.getElementById('Password') as HTMLInputElement;
-            let password;
-            if(ageInput){
-              password = ageInput.value
-            }
-            let salt = randomBytes(32).toString('hex')
-            let md5 = MD5(password+salt).toString()
-            
-            fetch("/api/add_user", {
-              method: "POST",
-              body:JSON.stringify({name:name, md5:md5, salt:salt})
-          })
-          }}>Submit data</button>
-          </div>
+        </div>
+          
+      </div>
+        
       </main>
     </div>
     <div className='h-[20rem]'/>

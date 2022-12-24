@@ -1,5 +1,6 @@
 import * as React from 'react'
 import component from './component.js'
+import Router from 'next/router';
 function getRandomInt(min, max) {
   return min + Math.floor(Math.random() * (max-min));
 }
@@ -10,6 +11,7 @@ export default class Layout2 extends React.Component{
   }
 
   render(){
+    
     if(!(this.state.working)){
       this.a()
     }
@@ -69,10 +71,20 @@ export default class Layout2 extends React.Component{
       }
     }}
     catch(e){}
+    
     const response = await fetch("/api/db_read", {
       method: "POST",
-      body:JSON.stringify({age:query})
+      body:JSON.stringify({query:{age:query}, session:Router.query.session})
   });
+  
+  if(response.status == 401){
+    this.setState({
+      records:[],
+      working:false
+    });
+    Router.push('/');
+    return;
+  }
     let json_response = await response.json();
     let arr = [];
     for (let n = 0; n < json_response.result.length; n++) {
@@ -86,6 +98,6 @@ export default class Layout2 extends React.Component{
       records:arr,
       working:false
     });}, 200)
-    //fetch('/api/get').then(response => response.json()).then(data => console.log(data));
+    
     }
 }
