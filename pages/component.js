@@ -1,9 +1,12 @@
 import * as React from 'react'
+import Link from 'next/link.js'
 import * as ReactDOM from 'react-dom'
+import { useRouter } from 'next/router'
 
 export default function component(props){
+  const router = useRouter()
 
-  console.log(props.records)
+  //console.log(props.records)
     let elements = [<h1 key={1} className="text-2xl font-bold mb-3 p-5 border-[#FCA311] border-b-8 w-full">
     Results:
   </h1>];
@@ -11,11 +14,11 @@ export default function component(props){
     for (let n = 0; n < props.records.length; n++) {
       const record = props.records[n];
       elements.push(
-        <div key={n+2} className=" hover:bg-[#FCA311] p-3 px-14 box-border w-[25%]">
+        <Link href={'/movie?session='+router.query.session+'&movie='+record.title.replace(/ /g, '_')} key={n+2} className=" hover:bg-[#FCA311] p-3 px-14 box-border w-[25%]">
             <h4 className='font-bold text-l'>{record.title}</h4>
             <p>{record.text}</p>
             <img src={record.image} className={'py-5'}/>
-        </div>
+        </Link>
     );
       
     }

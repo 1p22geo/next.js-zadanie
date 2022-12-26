@@ -18,6 +18,7 @@ export default async function handler(req, res) {
   const timestamp = Date.now()
   let authorised = false;
   
+  
   if(session.length === 1){
     
     if(timestamp - session[0].timestamp <= 120000){

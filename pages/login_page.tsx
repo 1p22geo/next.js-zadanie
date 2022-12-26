@@ -1,6 +1,7 @@
 import { randomBytes } from 'crypto'
 import type { NextPage } from 'next'
 import Head from 'next/head'
+import Link from 'next/link';
 import Login from './login.js'
 //import Layout2 from './layout.js'
 var MD5 = require("crypto-js/md5")
@@ -14,8 +15,9 @@ var MD5 = require("crypto-js/md5")
 const Home: NextPage = () => {
   return (
     <div className='bg-black'>
-    <div className="text-6xl flex font-bold bg-[#14213D] p-5 w-full text-[#E5E5E5] pb-12 justify-between border-[#FCA311] border-b-8">
-          <h1>Database connection</h1>
+    <div className="flex font-bold bg-[#14213D] p-5 w-full text-[#E5E5E5] pb-12 justify-between border-[#FCA311] border-b-8">
+          <h1 className="text-6xl">Database connection</h1>
+          <Link href="/" className='text-sky-200 p-2 self-center '>Go back</Link>
           <img src='vercel.svg' className='pr-12'/>
     </div>
     

@@ -19,7 +19,7 @@ export default async function handler(req, res) {
   
   if(session.length === 1){
     
-    if((timestamp - session[0].timestamp <= 600000)&&(session[0].user === "admin")){
+    if((timestamp - session[0].timestamp <= 120000)&&(session[0].user === "admin")){
       
       authorised = true;
     }

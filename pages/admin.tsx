@@ -17,7 +17,7 @@ const Page: NextPage = () => {
     <div className='bg-black'>
     <div className="flex font-bold bg-[#14213D] p-5 w-full text-[#E5E5E5] pb-12 justify-between border-[#FCA311] border-b-8">
           <h1 className="text-6xl self-center">Logged in</h1>
-          <Link href="/" className='text-sky-200 p-2 self-center translate-x-24'>Log out</Link>
+          <Link href="/" className='text-sky-200 p-2 self-center'>Log out</Link>
           <img src='vercel.svg' className='pr-12'/>
     </div>
     
