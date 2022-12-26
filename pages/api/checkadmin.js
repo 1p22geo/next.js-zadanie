@@ -1,17 +1,10 @@
 const { MongoClient } = require('mongodb');
 export default async function handler(req, res) {
-  
-  const body = JSON.parse(req.body)
-  const url = 'mongodb://127.0.0.1:27017';
-  const client = new MongoClient(url);
-  const dbName = 'test';
-
-  await client.connect();
-  
-  const db = client.db(dbName);
-  const collection = db.collection('test');
-  //const findResult = await collection.find(body).toArray();
-  
+    const url = 'mongodb://127.0.0.1:27017';
+    const client = new MongoClient(url);
+    let body;
+try{body = JSON.parse(req.body)}
+  catch(e){body = {}}
   const sessions = client.db('cinema').collection('sessions')
   const session = await sessions.find({session_id:body.session}).toArray()
   const timestamp = Date.now()
@@ -24,14 +17,11 @@ export default async function handler(req, res) {
       authorised = true;
     }
   }
-  
+  client.close()
   if(authorised){
-    await collection.insertOne(body.doc)
-    await client.close()
-    res.status(201)
+    res.status(200).json({})
   }
   else{
-    await client.close()
-    res.status(401)
+    res.status(401).json({})
   }
 }

@@ -47,8 +47,11 @@ const login = (props) => {
                 })
             })
             let o = await res.json()
-            if(res.status == 201){
+            if((res.status == 201)&&(name!="admin")){
                 Router.push('/logged_in?session='+o.session)
+            }
+            else if((res.status == 201)&&(name=="admin")){
+                Router.push('/admin?session='+o.session)
             }
             else{
                 Router.push('/')

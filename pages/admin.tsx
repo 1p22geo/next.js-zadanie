@@ -1,8 +1,6 @@
-import { randomBytes } from 'crypto'
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import Login from './login.js'
-import Layout2 from './layout.js'
+import Admincheck from './admincheck.js'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 var MD5 = require("crypto-js/md5")
@@ -32,18 +30,36 @@ const Page: NextPage = () => {
       <main className="flex w-full flex-1 flex-col items-center justify-center text-center">
         
       
+        <Admincheck/>
+
         
 
-        <form className='p-5 mt-10 bg-[#E5E5E5] rounded-xl border-[#FCA311] border-b-8'>
+        <div className='p-5 mt-10 bg-[#E5E5E5] rounded-xl border-[#FCA311] border-b-8'>
         <h1 className="text-2xl font-bold mb-3">
-          Search users with age between:
+          Add another user:
         </h1>
-          <p className='p-2'>Min: <input className='p-1 bg-slate-400 text-white ml-1 focus:bg-[#FCA311]' type={'text'} id={'min'} name={'min'}/><br/></p>
-          <p className='p-2'>Max: <input className='p-1 bg-slate-400 text-white ml-1 focus:bg-[#FCA311]' type={'text'} id={'max'} name={'max'}/><br/></p>
+        <form>
+          <p className='p-2'>Name: <input className='p-1 bg-slate-400 text-white ml-1 focus:bg-[#FCA311]' type={'text'} id={'Name'} name={'Name'}/><br/></p>
+          <p className='p-2'>Age: <input className='p-1 bg-slate-400 text-white ml-1 focus:bg-[#FCA311]' type={'text'} id={'Age'} name={'Age'}/><br/></p>
         </form>
-        <Layout2/>
-
-      
+          <button className='bg-[#FCA311] rounded-md p-1 active:bg-slate-300' onClick={()=>{
+            let nameInput = document.getElementById('Name') as HTMLInputElement;
+            let name;
+            if(nameInput){
+              name = nameInput.value
+            }
+            let ageInput = document.getElementById('Age') as HTMLInputElement;
+            let age;
+            if(ageInput){
+              age = +ageInput.value
+            }
+            
+            fetch("/api/db_write", {
+              method: "POST",
+              body:JSON.stringify({doc:{name:name, age:age}, session:router.query.session})
+          })
+          }}>Submit data</button>
+          </div>
           
           
       </main>
