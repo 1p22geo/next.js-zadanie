@@ -36,10 +36,9 @@ const Page: NextPage = () => {
 
         <form className='p-5 mt-10 bg-[#E5E5E5] rounded-xl border-[#FCA311] border-b-8'>
         <h1 className="text-2xl font-bold mb-3">
-          Search users with age between:
+          Search for movies
         </h1>
-          <p className='p-2'>Min: <input className='p-1 bg-slate-400 text-white ml-1 focus:bg-[#FCA311]' type={'text'} id={'min'} name={'min'}/><br/></p>
-          <p className='p-2'>Max: <input className='p-1 bg-slate-400 text-white ml-1 focus:bg-[#FCA311]' type={'text'} id={'max'} name={'max'}/><br/></p>
+          <p className='p-2'><input className='p-1 bg-slate-400 text-white ml-1 focus:bg-[#FCA311]' type={'text'} id={'searchbar'} name={'searchbar'}/><br/></p>
         </form>
         <Layout2/>
 

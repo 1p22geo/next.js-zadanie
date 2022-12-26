@@ -15,7 +15,7 @@ export default class Layout2 extends React.Component{
     if(!(this.state.working)){
       this.a()
     }
-    return React.createElement(component, this.state)//React.createElement(component, this.state);
+    return React.createElement(component,{records: this.state.records})//React.createElement(component, this.state);
   }
   async a(){
     this.state.working = true;
@@ -36,6 +36,8 @@ export default class Layout2 extends React.Component{
     if(checked === 1){
       query = {$lte:30}
     }*/
+    /*
+    /searching by price
     let query = {$gte:0}
     try{
     let minInput = document.getElementById('min');
@@ -71,10 +73,23 @@ export default class Layout2 extends React.Component{
       }
     }}
     catch(e){}
-    
+    */
+    let searchinput = document.getElementById('searchbar');
+    let searchstring;
+    let query;
+    if(searchinput){
+      if(searchinput.value != ''){
+        searchstring = searchinput.value
+        query = {$or:[{ title: { $regex: '(?i)'+searchstring} },{ description: { $regex: '(?i)'+searchstring} }]}
+      }
+      else{
+        searchstring = false;
+        query = {}
+      }
+    }
     const response = await fetch("/api/db_read", {
       method: "POST",
-      body:JSON.stringify({query:{age:query}, session:Router.query.session})
+      body:JSON.stringify({query:query, session:Router.query.session})
   });
   
   if(response.status == 401){
@@ -86,14 +101,17 @@ export default class Layout2 extends React.Component{
     return;
   }
     let json_response = await response.json();
+    //console.log(json_response)
     let arr = [];
     for (let n = 0; n < json_response.result.length; n++) {
       const document = json_response.result[n];
       arr.push({
-        title:document.name,
-        text:document.age
+        title:document.title,
+        text:document.description,
+        image:document.image
       });
     }
+    //console.log(arr)
     setTimeout(()=>{this.setState({
       records:arr,
       working:false

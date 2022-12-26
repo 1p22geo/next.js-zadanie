@@ -36,27 +36,43 @@ const Page: NextPage = () => {
 
         <div className='p-5 mt-10 bg-[#E5E5E5] rounded-xl border-[#FCA311] border-b-8'>
         <h1 className="text-2xl font-bold mb-3">
-          Add another user:
+          Add another movie:
         </h1>
         <form>
-          <p className='p-2'>Name: <input className='p-1 bg-slate-400 text-white ml-1 focus:bg-[#FCA311]' type={'text'} id={'Name'} name={'Name'}/><br/></p>
-          <p className='p-2'>Age: <input className='p-1 bg-slate-400 text-white ml-1 focus:bg-[#FCA311]' type={'text'} id={'Age'} name={'Age'}/><br/></p>
+          <p className='p-2'>Title: <input className='p-1 bg-slate-400 text-white ml-1 focus:bg-[#FCA311]' type={'text'} id={'title'} name={'title'}/><br/></p>
+          
+          <p className='p-2'>Description: <br/></p>
+          <textarea
+          className='p-1 bg-slate-400 text-white ml-1 focus:bg-[#FCA311]'
+          id={'description'}
+
+          rows={5}
+
+          cols={50}
+
+        />
+          <p className='p-2'>Image: <input className='p-1 bg-slate-400 text-white ml-1 focus:bg-[#FCA311]' type={'text'} id={'filename'} name={'filename'}/><br/></p>
         </form>
           <button className='bg-[#FCA311] rounded-md p-1 active:bg-slate-300' onClick={()=>{
-            let nameInput = document.getElementById('Name') as HTMLInputElement;
-            let name;
+            let nameInput = document.getElementById('title') as HTMLInputElement;
+            let title;
             if(nameInput){
-              name = nameInput.value
+              title = nameInput.value
             }
-            let ageInput = document.getElementById('Age') as HTMLInputElement;
-            let age;
+            let ageInput = document.getElementById('description') as HTMLInputElement;
+            let description;
             if(ageInput){
-              age = +ageInput.value
+              description = ageInput.value
+            }
+            let imageInput = document.getElementById('filename') as HTMLInputElement;
+            let filename;
+            if(imageInput){
+              filename = imageInput.value
             }
             
             fetch("/api/db_write", {
               method: "POST",
-              body:JSON.stringify({doc:{name:name, age:age}, session:router.query.session})
+              body:JSON.stringify({doc:{title:title, description:description, image:filename}, session:router.query.session})
           })
           }}>Submit data</button>
           </div>

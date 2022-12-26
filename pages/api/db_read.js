@@ -5,12 +5,12 @@ export default async function handler(req, res) {
   catch(e){body = {}}
   const url = 'mongodb://127.0.0.1:27017';
   const client = new MongoClient(url);
-  const dbName = 'test';
+  const dbName = 'cinema';
 
   await client.connect();
   
   const db = client.db(dbName);
-  const collection = db.collection('test');
+  const collection = db.collection('movies');
 
   const findResult = await collection.find(body.query).toArray();
   const sessions = client.db('cinema').collection('sessions')
