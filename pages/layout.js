@@ -1,9 +1,6 @@
 import * as React from 'react'
 import component from './component.js'
 import Router from 'next/router';
-function getRandomInt(min, max) {
-  return min + Math.floor(Math.random() * (max-min));
-}
 export default class Layout2 extends React.Component{
   constructor(props){
     super(props);

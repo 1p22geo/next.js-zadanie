@@ -3,6 +3,7 @@ import Head from 'next/head'
 import Admincheck from './admincheck.js'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
+import Checkuser from './checkuser.js'
 var MD5 = require("crypto-js/md5")
 /*
 <form className='p-5 mt-10 bg-[#E5E5E5] rounded-xl'>
@@ -16,7 +17,7 @@ const Page: NextPage = () => {
   return (
     <div className='bg-black'>
     <div className="flex font-bold bg-[#14213D] p-5 w-full text-[#E5E5E5] pb-12 justify-between border-[#FCA311] border-b-8">
-          <h1 className="text-6xl self-center">Logged in</h1>
+          <h1 className="text-6xl self-center"  id='header'>Logged in</h1>
           <Link href="/" className='text-sky-200 p-2 self-center'>Log out</Link>
           <img src='vercel.svg' className='pr-12'/>
     </div>
@@ -31,7 +32,7 @@ const Page: NextPage = () => {
         
       
         <Admincheck/>
-
+        <Checkuser/>
         
 
         <div className='p-5 mt-10 bg-[#E5E5E5] rounded-xl border-[#FCA311] border-b-8'>

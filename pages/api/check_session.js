@@ -12,14 +12,16 @@ try{body = JSON.parse(req.body)}
   
   if(session.length === 1){
     
-    if((timestamp - session[0].timestamp <= 120000)&&(session[0].user === "admin")){
-      
       authorised = true;
-    }
+    
   }
   client.close()
   if(authorised){
-    res.status(200).json({})
+    res.status(200).json({
+      user:session[0].user,
+      time:timestamp-session[0].timestamp,
+      active:timestamp-session[0].timestamp<120000
+    })
   }
   else{
     res.status(401).json({})

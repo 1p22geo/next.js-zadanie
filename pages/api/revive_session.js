@@ -10,9 +10,8 @@ export default async function handler(req, res) {
   await client.connect();
   
   const db = client.db(dbName);
-  const collection = db.collection('movies');
 
-  const findResult = await collection.find(body.query).toArray();
+  //const findResult = await collection.find(body.query).toArray();
   const sessions = client.db('cinema').collection('sessions')
   const session = await sessions.find({session_id:body.session}).toArray()
   const timestamp = Date.now()
@@ -24,13 +23,21 @@ export default async function handler(req, res) {
     if(timestamp - session[0].timestamp <= 120000){
       
       authorised = true;
+      await sessions.updateOne(
+        {session_id:body.session},
+        {
+          $set:{
+            timestamp:timestamp
+          }
+        }
+      )
     }
   }
   client.close()
   if(authorised){
-    res.status(200).json({ result: findResult })
+    res.status(201).json({})
   }
   else{
-    res.status(401).json({ result: null })
+    res.status(401).json({})
   }
 }
