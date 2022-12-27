@@ -105,7 +105,9 @@ export default class Layout2 extends React.Component{
       arr.push({
         title:document.title,
         text:document.description,
-        image:document.image
+        image:document.image,
+        genres:document.genre,
+        starring:document.starring
       });
     }
     //console.log(arr)

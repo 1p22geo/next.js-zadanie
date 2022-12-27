@@ -4,6 +4,7 @@ import Head from 'next/head'
 import Movie from "./movie_description"
 import { useRouter } from 'next/router'
 import Link from 'next/link'
+import Checkuser from './checkuser.js'
 var MD5 = require("crypto-js/md5")
 /*
 <form className='p-5 mt-10 bg-[#E5E5E5] rounded-xl'>
@@ -17,7 +18,7 @@ const Page: NextPage = () => {
   return (
     <div className='bg-black'>
     <div className="flex font-bold bg-[#14213D] p-5 w-full text-[#E5E5E5] pb-12 justify-between border-[#FCA311] border-b-8">
-          <h1 className="text-6xl self-center">Logged in</h1>
+          <h1 className="text-6xl self-center" id='header'>Logged in</h1>
           <Link href="/" className='text-sky-200 p-2 self-center'>Log out</Link>
           <Link href={"/logged_in?session="+router.query.session} className='text-sky-200 p-2 self-center'>Back to movies</Link>
 
@@ -25,14 +26,17 @@ const Page: NextPage = () => {
     </div>
     
     <div className="flex min-h-screen items-center justify-center bg-[#000000]">
+    
       <Head>
         <title>Database connection</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       
       <main className="flex w-full flex-1 flex-col items-center justify-center text-center">
-        
+      <Checkuser/>
+      
       <Movie/>
+      
         
       </main>
     </div>

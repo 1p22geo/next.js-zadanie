@@ -52,6 +52,30 @@ const Page: NextPage = () => {
           cols={50}
 
         />
+        
+          <p className='p-2'>Genres(separate with commas): <br/></p>
+          <textarea
+          className='p-1 bg-slate-400 text-white ml-1 focus:bg-[#FCA311]'
+          id={'genres'}
+
+          rows={3}
+
+          cols={50}
+
+        />
+        <p className='p-2'>Starring(separate names with commas): <br/></p>
+          <textarea
+          className='p-1 bg-slate-400 text-white ml-1 focus:bg-[#FCA311]'
+          id={'starring'}
+
+          rows={5}
+
+          cols={50}
+
+        />
+        
+        
+        
           <p className='p-2'>Image: <input className='p-1 bg-slate-400 text-white ml-1 focus:bg-[#FCA311]' type={'text'} id={'filename'} name={'filename'}/><br/></p>
         </form>
           <button className='bg-[#FCA311] rounded-md p-1 active:bg-slate-300' onClick={()=>{
@@ -65,6 +89,16 @@ const Page: NextPage = () => {
             if(ageInput){
               description = ageInput.value
             }
+            let genInput = document.getElementById('genres') as HTMLInputElement;
+            let genres;
+            if(genInput){
+              genres = genInput.value.split(', ')
+            }
+            let starringInput = document.getElementById('starring') as HTMLInputElement;
+            let starring;
+            if(starringInput){
+              starring = starringInput.value.split(', ')
+            }
             let imageInput = document.getElementById('filename') as HTMLInputElement;
             let filename;
             if(imageInput){
@@ -73,7 +107,7 @@ const Page: NextPage = () => {
             
             fetch("/api/db_write", {
               method: "POST",
-              body:JSON.stringify({doc:{title:title, description:description, image:filename}, session:router.query.session})
+              body:JSON.stringify({doc:{title:title, description:description, image:filename, genre:genres, starring:starring, reviews:[]}, session:router.query.session})
           })
           }}>Submit data</button>
           </div>
