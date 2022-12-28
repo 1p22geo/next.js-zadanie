@@ -12,6 +12,12 @@ var MD5 = require("crypto-js/md5")
   All<input type={'radio'} id={'button3'} name={'buttons'} value={'3'}/><br/>
 </form>
 */
+const toBase64 = (file: File) => new Promise((resolve, reject) => {
+  const reader = new FileReader();
+  reader.readAsDataURL(file);
+  reader.onload = () => resolve(reader.result);
+  reader.onerror = error => reject(error);
+});
 const Page: NextPage = () => {
   const router = useRouter()
   return (
@@ -72,13 +78,13 @@ const Page: NextPage = () => {
 
           cols={50}
 
-        />
+        /><br/>
         
         
-        
-          <p className='p-2'>Image: <input className='p-1 bg-slate-400 text-white ml-1 focus:bg-[#FCA311]' type={'text'} id={'filename'} name={'filename'}/><br/></p>
+      
+          <input type={'file'} id='file'/><br/>
         </form>
-          <button className='bg-[#FCA311] rounded-md p-1 active:bg-slate-300' onClick={()=>{
+          <button className='bg-[#FCA311] rounded-md p-1 active:bg-slate-300' onClick={async ()=>{
             let nameInput = document.getElementById('title') as HTMLInputElement;
             let title;
             if(nameInput){
@@ -99,10 +105,26 @@ const Page: NextPage = () => {
             if(starringInput){
               starring = starringInput.value.split(', ')
             }
-            let imageInput = document.getElementById('filename') as HTMLInputElement;
+            
+            let fileInput = (document.getElementById('file') as HTMLInputElement)!;
+            let files = fileInput.files!
             let filename;
-            if(imageInput){
-              filename = imageInput.value
+            if(files!.length===1){
+              let file = files[0]
+              const base64: string = await toBase64(file) as string;
+
+              const fileData = { base64, fileName: file.name };
+              let res = await fetch("/api/save_file", {
+                method: "POST",
+                body:JSON.stringify({
+                  file:fileData,
+                  session:router.query.session
+                })
+
+              });
+              let r_json = await res.json()
+              filename = r_json.filename
+              //const result = await api.post("/foo", fileData, name: "Salih", massage: "Hello World"});
             }
             
             fetch("/api/db_write", {
@@ -110,6 +132,8 @@ const Page: NextPage = () => {
               body:JSON.stringify({doc:{title:title, description:description, image:filename, genre:genres, starring:starring, reviews:[]}, session:router.query.session})
           })
           }}>Submit data</button>
+
+          
           </div>
           
           

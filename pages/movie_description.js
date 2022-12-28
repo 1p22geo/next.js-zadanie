@@ -72,7 +72,7 @@ const movie_description = () => {
                 {result[0].title}
                 </h1>
                 <p className='py-0.5 text-2xl'>{result[0].description}</p>
-                <img src={result[0].image} className='h-40 m-8'/>
+                <img src={result[0].image} className='w-96 mx-auto m-8'/>
                 <h4 className='font-bold text-2xl pb-3'>Genres:</h4>
                 <ul className='list-disc text-[#FCA311]'>
                 {result[0].genre.map((genre)=>{return <li className='py-0.5 text-xl' key={genre}><p className='text-black inline '>{genre}</p></li>})}
@@ -154,11 +154,13 @@ const movie_description = () => {
             let title;
             if(Input){
               title = Input.value
+              Input.value = ""
             }
             Input = document.getElementById('text');
             let text;
             if(Input){
               text = Input.value
+              Input.value = ""
             }
             let radios = document.getElementsByName('buttons');
             let checked = -1
@@ -166,9 +168,10 @@ const movie_description = () => {
                 const radiobutton = radios[i];
                 if(radiobutton.checked){
                     checked = i
+                    radiobutton.checked = false;
                 }
             }
-            console.log(checked)
+            //console.log(checked)
             if(checked!==-1){
                 fetch("/api/create_review", {
                     method: "POST",

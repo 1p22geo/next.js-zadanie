@@ -26,12 +26,12 @@ export default async function handler(req, res) {
       session_id:session_id
     })
     client.close()
-    console.log('session created')
+    //console.log('session created')
     res.status(201).json({ session: session_id })// 201 created
   }
   else{
     client.close()
-    console.log('session refused')
+    //console.log('session refused')
     res.status(401).json({ session: null })// 401 unauthorised
   }
   

@@ -54,7 +54,7 @@ const login = (props) => {
                 Router.push('/admin?session='+o.session)
             }
             else{
-                Router.push('/')
+                Router.push('/login_page')
             }
             //let salt = randomBytes(32).toString('hex')
             //let md5 = MD5(password+salt).toString()

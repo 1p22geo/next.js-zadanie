@@ -11,8 +11,27 @@ export default async function handler(req, res) {
   const db = client.db(dbName);
   const collection = db.collection('users');
   //const findResult = await collection.find(body).toArray();
-  collection.insertOne(body)
-  setTimeout(()=>client.close(), 1000);
-  
-  res.status(200).json({})
+  let r = await collection.find({name:body.name}).toArray()
+  if(r.length === 0){
+    collection.insertOne(
+      {
+        ...body,
+        type:"user"
+      }).then((response)=>{
+        setTimeout(async ()=>{await client.close()}, 1000);
+    
+        res.status(201).json({})
+      },
+      (err)=>{//TODO:How to test it
+        setTimeout(async ()=>{await client.close()}, 1000);
+    
+        res.status(500).json({})
+      })
+    
+  }
+  else{
+   await client.close()
+   res.status(409).json({})
+  }
+
 }
