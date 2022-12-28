@@ -19,7 +19,7 @@ export default function component(props){
             <p>{record.text}</p>
             <img src={record.image} className={'py-5'}/>
             <div className=''>
-            <div className='overflow-scroll h-32 hidden group-hover:block'>
+            <div className='overflow-scroll h-32'>
             <h4 className='font-bold text-l'>Genres:</h4>
             <ul className='list-disc'>
               {record.genres.map((genre)=>{return <li key={genre}>{genre}</li>})}

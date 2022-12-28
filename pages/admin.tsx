@@ -24,6 +24,7 @@ const Page: NextPage = () => {
     <div className='bg-black'>
     <div className="flex font-bold bg-[#14213D] p-5 w-full text-[#E5E5E5] pb-12 justify-between border-[#FCA311] border-b-8">
           <h1 className="text-6xl self-center"  id='header'>Logged in</h1>
+          <Link  href={"/logged_in?session="+router.query.session} className='text-sky-200 p-2 self-center'>Browse movies</Link>
           <Link href="/" className='text-sky-200 p-2 self-center'>Log out</Link>
           <img src='vercel.svg' className='pr-12'/>
     </div>
@@ -59,7 +60,7 @@ const Page: NextPage = () => {
 
         />
         
-          <p className='p-2'>Genres(separate with commas): <br/></p>
+          <p className='p-2'>Genres (separate with commas): <br/></p>
           <textarea
           className='p-1 bg-slate-400 text-white ml-1 focus:bg-[#FCA311]'
           id={'genres'}
@@ -69,7 +70,7 @@ const Page: NextPage = () => {
           cols={50}
 
         />
-        <p className='p-2'>Starring(separate names with commas): <br/></p>
+        <p className='p-2'>Starring (separate names with commas): <br/></p>
           <textarea
           className='p-1 bg-slate-400 text-white ml-1 focus:bg-[#FCA311]'
           id={'starring'}
@@ -109,7 +110,12 @@ const Page: NextPage = () => {
             let fileInput = (document.getElementById('file') as HTMLInputElement)!;
             let files = fileInput.files!
             let filename;
-            if(files!.length===1){
+            if((files!.length===1)&&(nameInput.value)&&(ageInput.value)&&(genInput.value)&&(starringInput.value)){
+              nameInput.value = ""
+              ageInput.value = ""
+              genInput.value = ""
+              starringInput.value = ""
+              fileInput.value = ""
               let file = files[0]
               const base64: string = await toBase64(file) as string;
 
@@ -124,13 +130,15 @@ const Page: NextPage = () => {
               });
               let r_json = await res.json()
               filename = r_json.filename
+              fetch("/api/db_write", {
+                method: "POST",
+                body:JSON.stringify({doc:{title:title, description:description, image:filename, genre:genres, starring:starring, reviews:[], screening:[]}, session:router.query.session})
+            })
+            alert("Added movie")
               //const result = await api.post("/foo", fileData, name: "Salih", massage: "Hello World"});
             }
             
-            fetch("/api/db_write", {
-              method: "POST",
-              body:JSON.stringify({doc:{title:title, description:description, image:filename, genre:genres, starring:starring, reviews:[]}, session:router.query.session})
-          })
+            
           }}>Submit data</button>
 
           
