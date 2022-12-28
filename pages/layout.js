@@ -107,7 +107,8 @@ export default class Layout2 extends React.Component{
         text:document.description,
         image:document.image,
         genres:document.genre,
-        starring:document.starring
+        starring:document.starring,
+        screening:document.screening
       });
     }
     //console.log(arr)
