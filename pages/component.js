@@ -21,6 +21,10 @@ function stringifyDate(date){
 
 export default function component(props){
   const router = useRouter()
+  let elements = [<h1 key={1} className="text-2xl font-bold mb-3 p-5 border-[#FCA311] border-b-8 w-full">
+    Results:
+  </h1>];
+  if(typeof document != 'undefined'){
   let start, end;
   if(document&&document.getElementById('start')){
     let Input = document.getElementById('start')
@@ -62,14 +66,12 @@ export default function component(props){
   }
   //console.log(start, end)
   //console.log(props.records)
-    let elements = [<h1 key={1} className="text-2xl font-bold mb-3 p-5 border-[#FCA311] border-b-8 w-full">
-    Results:
-  </h1>];
+    
 
     for (let n = 0; n < props.records.length; n++) {
       const record = props.records[n];
       elements.push(
-        <Link href={'/movie?session='+router.query.session+'&movie='+record.title.replace(/ /g, '_')} key={n+2} className=" hover:bg-[#FCA311] p-3 px-6 box-border w-[25%] group">
+        <Link href={'/movie?session='+router.query.session+'&movie='+record.title.replace(/ /g, '_')+"&cinema="+document.getElementById('adresses').value} key={n+2} className=" hover:bg-[#FCA311] p-3 px-6 box-border w-[25%] group">
             <h4 className='font-bold text-l'>{record.title}</h4>
             <p>{record.text}</p>
             <img src={record.image} className={'py-5'}/>
@@ -93,10 +95,13 @@ export default function component(props){
                 let time = hour*60 +minute
 
                 let inDateBounds = (start<=time)&&(time<=end)
+                console.log(startQuery, endQuery, screening.timestamp)
+
+                let inTimebounds = (startQuery<=screening.timestamp)&&(endQuery>=screening.timestamp)
 
 
 
-                return (screening.cinema==document.getElementById('adresses').value)&&inDateBounds?<div className='p-1' key={JSON.stringify(screening)}>{stringifyDate(new Date(screening.timestamp))}</div>:<></>})}
+                return (screening.cinema==document.getElementById('adresses').value)&&inDateBounds&&inTimebounds?<div className='p-1' key={JSON.stringify(screening)}>{stringifyDate(new Date(screening.timestamp))}</div>:<></>})}
             </div>
             </div>
             </div>
@@ -104,7 +109,9 @@ export default function component(props){
     );
       
     }
-    if(props.records.length === 0){
+    }
+
+    if((props.records.length === 0)||(typeof document == 'undefined')){
       elements.push(
         <div key={2} className='flex flex-col  w-full'>
         <h1 key={1} className="text-2xl font-bold mb-3 p-5">No matching results found</h1>

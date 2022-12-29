@@ -4,6 +4,7 @@ import Head from 'next/head'
 import Link from 'next/link.js'
 import Movies from './movies.js'
 import Checkuser from './checkuser.js'
+import { GetServerSideProps } from 'next'
 //import Layout2 from './layout.js'
 var MD5 = require("crypto-js/md5")
 /*

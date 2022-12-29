@@ -9,7 +9,7 @@ export default class Layout2 extends React.Component{
 
   render(){
     
-    if(!(this.state.working)){
+    if((!(this.state.working))&&(typeof document != 'undefined')){
       this.a()
     }
     return React.createElement(component,{records: this.state.records})//React.createElement(component, this.state);
@@ -87,6 +87,7 @@ export default class Layout2 extends React.Component{
     let newQuery = query
     if(document.getElementById('adresses')){
       if(!((typeof document.getElementById('adresses').value == 'undefined')||(document.getElementById('adresses').value === null))){
+
         let start, end = [0]
         if(document.getElementById('start')){
           let Input = document.getElementById('start')
@@ -124,6 +125,7 @@ export default class Layout2 extends React.Component{
           let inputDate = document.getElementById('date').value//.split('-')
           let date = new Date(inputDate)
           dateQuery = {timestamp:{$gte:date.getTime(), $lte:date.getTime()+86400000}}//86400000 miliseconds is one day
+          console.log(dateQuery)
         }
         else{
           dateQuery = {...startQuery, ...endQuery}

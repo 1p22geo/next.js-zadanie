@@ -1,6 +1,24 @@
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useRef } from 'react';
+function a(x){
+    return ((x).toString().length===1)?"0"+(x).toString():(x).toString()
+  }
+  function stringifyDate(date){
+    date = new Date(date)
+    let string = ""
+    string += a(date.getDate())
+    string += "."
+    string += a(date.getMonth()+1)
+    string += "."
+    string += date.getFullYear()
+    string += " "
+    string += a(date.getHours())
+    string += ":"
+    string += a(date.getMinutes())
+    return string;
+  }
+  
 const movie_description = () => {
     let [response, setResult] = useState({result:[]});
     let [reviews, setLreviews] = useState(9);
@@ -84,8 +102,17 @@ const movie_description = () => {
                 {result[0].starring.map((genre)=>{return <li className='py-0.5 text-xl' key={genre}><p className='text-black inline '>{genre}</p></li>})}
                 </ul>
                 </div>
-                <button className='bg-[#FCA311] rounded-md p-1 active:bg-slate-300 w-1/3 mx-auto'>Buy tickets</button>
+                
             </div> 
+
+            <div className='p-5 mt-10 bg-[#E5E5E5] rounded-xl border-[#FCA311] border-b-8 w-4/5'>
+            <h1 className=' font-extrabold text-5xl pb-3'>
+                Screening at:
+            </h1>
+            <div className='flex overflow-scroll'>
+            {result[0].screening.map(screening=>{return screening.cinema==router.query.cinema?<div className='w-1/5 border-[10px] m-3 p-5 box-border border-[#FCA311]'>{stringifyDate(screening.timestamp)}<br/>Sala {screening.movie_hall}</div> : <></>})}
+            </div>
+            </div>
 
 
             <div className='p-5 mt-10 bg-[#E5E5E5] rounded-xl border-[#FCA311] border-b-8 flex flex-col w-2/3'>
