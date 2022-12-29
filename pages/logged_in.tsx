@@ -53,6 +53,7 @@ const Page: NextPage = () => {
           
           <p className='p-2'>City: <input className='p-1 bg-slate-400 text-white ml-1 focus:bg-[#FCA311]' type={'text'} id={'city'} name={'city'}/><br/></p>
           <p className='p-2'>Adress: <Cinema_choice/><br/></p>
+          <p className='p-2'>Or show all movies: <input type={'checkbox'} id='all'/><br/></p>
           <h1 className="text-2xl font-bold mb-3">
             When do you have time
           </h1>

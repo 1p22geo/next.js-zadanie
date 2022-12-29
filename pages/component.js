@@ -73,7 +73,7 @@ export default function component(props){
       elements.push(
         <Link href={'/movie?session='+router.query.session+'&movie='+record.title.replace(/ /g, '_')+"&cinema="+document.getElementById('adresses').value} key={n+2} className=" hover:bg-[#FCA311] p-3 px-6 box-border w-[25%] group">
             <h4 className='font-bold text-l'>{record.title}</h4>
-            <p>{record.text}</p>
+            <p>{record.text.slice(0, 150-record.text.length)}</p>
             <img src={record.image} className={'py-5'}/>
             <div className=''>
             <div className='overflow-scroll h-32'>
@@ -95,7 +95,7 @@ export default function component(props){
                 let time = hour*60 +minute
 
                 let inDateBounds = (start<=time)&&(time<=end)
-                console.log(startQuery, endQuery, screening.timestamp)
+                //console.log(startQuery, endQuery, screening.timestamp)
 
                 let inTimebounds = (startQuery<=screening.timestamp)&&(endQuery>=screening.timestamp)
 

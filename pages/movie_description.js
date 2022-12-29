@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useRef } from 'react';
+import Add_screening from './add_screening_component'
 function a(x){
     return ((x).toString().length===1)?"0"+(x).toString():(x).toString()
   }
@@ -93,13 +94,13 @@ const movie_description = () => {
                 <img src={result[0].image} className='w-96 mx-auto m-8'/>
                 <h4 className='font-bold text-2xl pb-3'>Genres:</h4>
                 <ul className='list-disc text-[#FCA311]'>
-                {result[0].genre.map((genre)=>{return <li className='py-0.5 text-xl' key={genre}><p className='text-black inline '>{genre}</p></li>})}
+                {result[0].genre.map((genre, index)=>{return <li className='py-0.5 text-xl' key={genre+index}><p className='text-black inline '>{genre}</p></li>})}
                 </ul>
                 
                 <div className='my-5'>
                 <h4 className='font-bold text-2xl pb-3'>Starring:</h4>
                 <ul className='list-disc text-[#FCA311]'>
-                {result[0].starring.map((genre)=>{return <li className='py-0.5 text-xl' key={genre}><p className='text-black inline '>{genre}</p></li>})}
+                {result[0].starring.map((genre, index)=>{return <li className='py-0.5 text-xl' key={genre+index}><p className='text-black inline '>{genre}</p></li>})}
                 </ul>
                 </div>
                 
@@ -110,7 +111,8 @@ const movie_description = () => {
                 Screening at:
             </h1>
             <div className='flex overflow-scroll'>
-            {result[0].screening.map(screening=>{return screening.cinema==router.query.cinema?<div className='w-1/5 border-[10px] m-3 p-5 box-border border-[#FCA311]'>{stringifyDate(screening.timestamp)}<br/>Sala {screening.movie_hall}</div> : <></>})}
+            <Add_screening/>
+            {result[0].screening.map((screening, index)=>{return screening.cinema==router.query.cinema?<div key={JSON.stringify(screening)+index} className=' flex-shrink-0 w-1/5 border-[10px] m-3 p-5 box-border border-[#FCA311] text-center justify-center'>{stringifyDate(screening.timestamp)}<br/>Sala {screening.movie_hall}</div> : <></>})}
             </div>
             </div>
 
@@ -121,18 +123,18 @@ const movie_description = () => {
             </h1>
             <p className='py-0.5 text-2xl'>{result[0].reviews.length.toString()+" rewievs"}</p>
             <div className='flex mt-2 flex-wrap  justify-evenly'>
-            {l_reviews.map((review)=>{
+            {l_reviews.map((review, index)=>{
                 let stars = review.rating
                 let starlist = []
                 for (let n = 0; n < stars; n++) {
                     starlist.push('*')
                 }
                 return (
-                <div className='p-2 text-xl w-1/3 flex flex-col' key={review.title}>
+                <div className='p-2 text-xl w-1/3 flex flex-col' key={index}>
                     <h4 className='font-bold text-2xl pb-3'>{review.title}</h4>
                     <div className='flex text-center justify-center'>
                     {
-                        starlist.map((star)=>{return <p className='inline text-[#FCA311] font-extrabold text-6xl'>*</p>})
+                        starlist.map((star, index)=>{return <p key={index+star} className='inline text-[#FCA311] font-extrabold text-6xl'>*</p>})
                     }
                     </div>
                     <div className='flex justify-center'>

@@ -17,7 +17,7 @@ const admin_back = () => {
         }).then((res)=>{
             if(res.status===200){
                 setValue(true)
-                setTimeout(()=>{setWorking(false)}, 200)
+                setTimeout(()=>{setWorking(false)}, 1000)
             }
             else{
                 setValue(false)

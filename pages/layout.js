@@ -86,7 +86,7 @@ export default class Layout2 extends React.Component{
     }
     let newQuery = query
     if(document.getElementById('adresses')){
-      if(!((typeof document.getElementById('adresses').value == 'undefined')||(document.getElementById('adresses').value === null))){
+      if(!((typeof document.getElementById('adresses').value == 'undefined')||(document.getElementById('adresses').value == ''))){
 
         let start, end = [0]
         if(document.getElementById('start')){
@@ -131,11 +131,14 @@ export default class Layout2 extends React.Component{
           dateQuery = {...startQuery, ...endQuery}
         }
         //console.log(dateQuery)
+        let cinemaquery = {}
+        if(document.getElementById('adresses').value) cinemaquery = {cinema:document.getElementById('adresses').value}
 
-        newQuery = {$and:[{screening:{$elemMatch:{$and:[{cinema:document.getElementById('adresses').value},{time:{$gte:start, $lte:end}}, dateQuery]}}}, query]}
+        newQuery = {$and:[{screening:{$elemMatch:{$and:[cinemaquery,{time:{$gte:start, $lte:end}}, dateQuery]}}}, query]}
       }
     }
-    console.log('sending!')
+    if((document.getElementById('all'))&&(document.getElementById('all').checked)){newQuery = {}}
+    //console.log('sending!')
     const response = await fetch("/api/db_read", {
       method: "POST",
       body:JSON.stringify({query:newQuery, session:Router.query.session})
@@ -150,8 +153,6 @@ export default class Layout2 extends React.Component{
     return;
   }
     let json_response = await response.json();
-    //console.log(json_response)
-    console.log('recieved!')
     let arr = [];
     for (let n = 0; n < json_response.result.length; n++) {
       const document = json_response.result[n];
@@ -168,7 +169,7 @@ export default class Layout2 extends React.Component{
     setTimeout(()=>{this.setState({
       records:arr,
       working:false
-    });}, 100)
+    });}, 300)
     
     }
 }

@@ -83,7 +83,7 @@ const Page: NextPage = () => {
         
         
       
-          <input type={'file'} id='file'/><br/>
+          <input className='my-4' type={'file'} id='file'/><br/>
         </form>
           <button className='bg-[#FCA311] rounded-md p-1 active:bg-slate-300' onClick={async ()=>{
             let nameInput = document.getElementById('title') as HTMLInputElement;

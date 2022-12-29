@@ -24,13 +24,13 @@ const checkuser = () => {
                 }
                 time.current = res_json.time
                 document.getElementById('header').innerHTML = "Logged in as "+res_json.user
-                setTimeout(()=>{setWorking(false);}, 500)
+                setTimeout(()=>{setWorking(false);}, 1000)
 
             })
         })
     }
     if(time.current!==-1){
-        if(time.current>=560000){
+        if(time.current>=540000){
             return(
             <div className='p-5 mt-10 bg-[#E5E5E5] rounded-xl border-[#FCA311] border-b-8 flex flex-col'>
             <h1 className="text-2xl font-bold mb-3">
