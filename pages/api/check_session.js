@@ -20,7 +20,7 @@ try{body = JSON.parse(req.body)}
     res.status(200).json({
       user:session[0].user,
       time:timestamp-session[0].timestamp,
-      active:timestamp-session[0].timestamp<120000
+      active:timestamp-session[0].timestamp<600000
     })
   }
   else{

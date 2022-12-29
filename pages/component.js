@@ -13,17 +13,32 @@ function stringifyDate(date){
   string += "."
   string += date.getFullYear()
   string += " "
-  string += a(date.getHours())
-  string += "."
-  string += a(date.getMinutes())
-  string += "."
-  string += a(date.getSeconds())
+  string += a(date.getHours()-1)
+  string += ":"
+  string += a(date.getMinutes()-1)
   return string;
 }
 
 export default function component(props){
   const router = useRouter()
-
+  let start, end;
+  if(document.getElementById('start')){
+    let Input = document.getElementById('start')
+    let start_string = Input.value
+    start = start_string.split(':').map((x)=>Number(x))
+    if(start.length === 1) start=[0,0]
+    start = start[0]*60 + start[1]
+    
+  }
+  if(document.getElementById('end')){
+    let Input = document.getElementById('end')
+    let start_string = Input.value
+    end = start_string.split(':').map((x)=>Number(x))
+    if(end.length === 1) end=[23, 59]
+    
+    end = end[0]*60 + end[1]
+  }
+  console.log(start, end)
   //console.log(props.records)
     let elements = [<h1 key={1} className="text-2xl font-bold mb-3 p-5 border-[#FCA311] border-b-8 w-full">
     Results:
@@ -47,8 +62,17 @@ export default function component(props){
               {record.starring.map((genre)=>{return <li key={genre}>{genre}</li>})}
             </ul>
             <h4 className='font-bold text-l'>Screening:</h4>
-            <div className='list-disc'>
-              {record.screening.map((screening)=>{return <div className='p-1'><div key={JSON.stringify(screening)}>{stringifyDate(new Date(screening.timestamp))}</div><div>{screening.cinema.city+" "+screening.cinema.Adress}</div></div>})}
+            <div>
+              {record.screening.map((screening)=>{
+                let date = new Date(screening.timestamp)
+                let minute = date.getMinutes()
+                let hour = date.getHours()
+
+                let time = hour*60 +minute
+
+                let inDateBounds = (start<=time)&&(time<=end)
+
+                return (screening.cinema==document.getElementById('adresses').value)&&inDateBounds?<div className='p-1' key={JSON.stringify(screening)}>{stringifyDate(new Date(screening.timestamp))}</div>:<></>})}
             </div>
             </div>
             </div>

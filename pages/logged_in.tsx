@@ -7,6 +7,7 @@ import { useRouter } from 'next/router'
 import Link from 'next/link'
 import Checkuser from './checkuser.js'
 import Admin_back from "./admin_back"
+import Cinema_choice from "./cinema_choice"
 var MD5 = require("crypto-js/md5")
 /*
 <form className='p-5 mt-10 bg-[#E5E5E5] rounded-xl'>
@@ -43,13 +44,21 @@ const Page: NextPage = () => {
           Search for movies
         </h1>
           <p className='p-2'><input className='p-1 bg-slate-400 text-white ml-1 focus:bg-[#FCA311]' type={'text'} id={'searchbar'} name={'searchbar'}/><br/></p>
+
+          <h1 className="text-2xl font-bold mb-3">
+            Where can you go
+          </h1>
+          
+          <p className='p-2'>City: <input className='p-1 bg-slate-400 text-white ml-1 focus:bg-[#FCA311]' type={'text'} id={'city'} name={'city'}/><br/></p>
+          <p className='p-2'>Adress: <Cinema_choice/><br/></p>
+          <h1 className="text-2xl font-bold mb-3">
+            When do you have time
+          </h1>
+          
+          <p className='p-2'>Start: <input className='p-1 bg-slate-400 text-white ml-1 focus:bg-[#FCA311]' type={'time'} id={'start'} name={'start'}/><br/></p>
+          <p className='p-2'>End: <input className='p-1 bg-slate-400 text-white ml-1 focus:bg-[#FCA311]' type={'time'} id={'end'} name={'end'}/><br/></p>
         </form>
         <Layout2/>
-        
-
-      
-          
-          
       </main>
     </div>
     <div className='h-[20rem]'/>

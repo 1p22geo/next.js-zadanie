@@ -73,7 +73,7 @@ export default class Layout2 extends React.Component{
     */
     let searchinput = document.getElementById('searchbar');
     let searchstring;
-    let query;
+    let query = {}
     if(searchinput){
       if(searchinput.value != ''){
         searchstring = searchinput.value
@@ -84,9 +84,34 @@ export default class Layout2 extends React.Component{
         query = {}
       }
     }
+    let newQuery = query
+    if(document.getElementById('adresses')){
+      if(!((typeof document.getElementById('adresses').value == 'undefined')||(document.getElementById('adresses').value === null))){
+        let start, end = [0]
+        if(document.getElementById('start')){
+          let Input = document.getElementById('start')
+          let start_string = Input.value
+          start = start_string.split(':').map((x)=>Number(x))
+          
+        }
+        if(start.length === 1) start=[0,0]
+        start = start[0]*60 + start[1]
+        if(document.getElementById('end')){
+          let Input = document.getElementById('end')
+          let start_string = Input.value
+          end = start_string.split(':').map((x)=>Number(x))
+          
+        }
+        if(end.length === 1) end=[23, 59]
+          
+        end = end[0]*60 + end[1]
+
+        newQuery = {$and:[{screening:{$elemMatch:{$and:[{cinema:document.getElementById('adresses').value},{time:{$gte:start, $lte:end}}]}}}, query]}
+      }
+    }
     const response = await fetch("/api/db_read", {
       method: "POST",
-      body:JSON.stringify({query:query, session:Router.query.session})
+      body:JSON.stringify({query:newQuery, session:Router.query.session})
   });
   
   if(response.status == 401){
@@ -115,7 +140,7 @@ export default class Layout2 extends React.Component{
     setTimeout(()=>{this.setState({
       records:arr,
       working:false
-    });}, 200)
+    });}, 300)
     
     }
 }

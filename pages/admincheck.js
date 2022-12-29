@@ -26,10 +26,10 @@ export default class Admincheck extends React.Component{
   });
   
   if(response.status == 401){
-    this.setState({
-      authorised:false,
+    setTimeout(()=>{this.setState({
+      authorised:true,
       working:false
-    });
+    });}, 2000)
     Router.push('/');
     return;
   }
@@ -37,7 +37,7 @@ export default class Admincheck extends React.Component{
     setTimeout(()=>{this.setState({
       authorised:true,
       working:false
-    });}, 200)
+    });}, 500)
     
     }
 }

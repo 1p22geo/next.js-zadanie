@@ -34,7 +34,7 @@ const checkuser = () => {
             return(
             <div className='p-5 mt-10 bg-[#E5E5E5] rounded-xl border-[#FCA311] border-b-8 flex flex-col'>
             <h1 className="text-2xl font-bold mb-3">
-              Session will expire in {Math.round((120000-time.current)/1000)} seconds!
+              Session will expire in {Math.round((600000-time.current)/1000)} seconds!
             </h1>
             <p>You will be kicked out of the website, right back to the main page.</p>
             <img className='my-5' src='vercel.svg'></img>
