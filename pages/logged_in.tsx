@@ -8,6 +8,7 @@ import Link from 'next/link'
 import Checkuser from './checkuser.js'
 import Admin_back from "./admin_back"
 import Cinema_choice from "./cinema_choice"
+import Day_select from './day_select'
 var MD5 = require("crypto-js/md5")
 /*
 <form className='p-5 mt-10 bg-[#E5E5E5] rounded-xl'>
@@ -32,6 +33,7 @@ const Page: NextPage = () => {
       <Head>
         <title>Database connection</title>
         <link rel="icon" href="/favicon.ico" />
+        <link rel='stylesheet' href='style.css'/>
       </Head>
       
       <main className="flex w-full flex-1 flex-col items-center justify-center text-center">
@@ -54,9 +56,28 @@ const Page: NextPage = () => {
           <h1 className="text-2xl font-bold mb-3">
             When do you have time
           </h1>
-          
+          <div className='flex'>
+          <div>
+          <h1 className="text-xl font-bold mb-3 dropdown">
+            Which hours
+            <span className='dropdown-content'>
+              You can see movies from different days, but only the ones within those hours.
+            </span>
+          </h1>
           <p className='p-2'>Start: <input className='p-1 bg-slate-400 text-white ml-1 focus:bg-[#FCA311]' type={'time'} id={'start'} name={'start'}/><br/></p>
           <p className='p-2'>End: <input className='p-1 bg-slate-400 text-white ml-1 focus:bg-[#FCA311]' type={'time'} id={'end'} name={'end'}/><br/></p>
+          </div>
+          <div>
+          <h1 className="text-xl font-bold mb-3 dropdown">
+            Which days
+            <span className='dropdown-content'>
+              You can see movies from the selected hours, within all the given days
+            </span>
+          </h1><br/>
+          Only select one day <input type={'checkbox'} id='multiple'/>
+          <Day_select/>
+          </div>
+          </div>
         </form>
         <Layout2/>
       </main>

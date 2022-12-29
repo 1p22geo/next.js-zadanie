@@ -106,9 +106,34 @@ export default class Layout2 extends React.Component{
           
         end = end[0]*60 + end[1]
 
-        newQuery = {$and:[{screening:{$elemMatch:{$and:[{cinema:document.getElementById('adresses').value},{time:{$gte:start, $lte:end}}]}}}, query]}
+        let startQuery = {}
+        if(document.getElementById('start-d')&&(document.getElementById('start-d').value != '')){
+            let inputDate = document.getElementById('start-d').value//.split('-')
+            let date = new Date(inputDate)
+            startQuery = {timestamp:{$gte:date.getTime()}}
+            //console.log(inputDate)
+        }
+        let endQuery = {}
+        if(document.getElementById('end-d')&&(document.getElementById('end-d').value != '')){
+          let inputDate = document.getElementById('end-d').value//.split('-')
+          let date = new Date(inputDate)
+          endQuery = {timestamp:{$lte:date.getTime()}}
+        }
+        let dateQuery;
+        if((document.getElementById('date')&&(document.getElementById('date').value != ''))){
+          let inputDate = document.getElementById('date').value//.split('-')
+          let date = new Date(inputDate)
+          dateQuery = {timestamp:{$gte:date.getTime(), $lte:date.getTime()+86400000}}//86400000 miliseconds is one day
+        }
+        else{
+          dateQuery = {...startQuery, ...endQuery}
+        }
+        //console.log(dateQuery)
+
+        newQuery = {$and:[{screening:{$elemMatch:{$and:[{cinema:document.getElementById('adresses').value},{time:{$gte:start, $lte:end}}, dateQuery]}}}, query]}
       }
     }
+    console.log('sending!')
     const response = await fetch("/api/db_read", {
       method: "POST",
       body:JSON.stringify({query:newQuery, session:Router.query.session})
@@ -124,6 +149,7 @@ export default class Layout2 extends React.Component{
   }
     let json_response = await response.json();
     //console.log(json_response)
+    console.log('recieved!')
     let arr = [];
     for (let n = 0; n < json_response.result.length; n++) {
       const document = json_response.result[n];
@@ -140,7 +166,7 @@ export default class Layout2 extends React.Component{
     setTimeout(()=>{this.setState({
       records:arr,
       working:false
-    });}, 300)
+    });}, 100)
     
     }
 }

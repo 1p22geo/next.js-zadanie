@@ -30,7 +30,7 @@ const checkuser = () => {
         })
     }
     if(time.current!==-1){
-        if(time.current>=90000){
+        if(time.current>=560000){
             return(
             <div className='p-5 mt-10 bg-[#E5E5E5] rounded-xl border-[#FCA311] border-b-8 flex flex-col'>
             <h1 className="text-2xl font-bold mb-3">

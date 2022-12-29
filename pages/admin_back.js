@@ -21,7 +21,7 @@ const admin_back = () => {
             }
             else{
                 setValue(false)
-                setTimeout(()=>{setWorking(false)}, 10000)
+                //setTimeout(()=>{setWorking(false)}, 10000)
             }
             })
     }

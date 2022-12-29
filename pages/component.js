@@ -3,26 +3,26 @@ import Link from 'next/link.js'
 import * as ReactDOM from 'react-dom'
 import { useRouter } from 'next/router'
 function a(x){
-  return ((x+1).toString().length===1)?"0"+(x+1).toString():(x+1).toString()
+  return ((x).toString().length===1)?"0"+(x).toString():(x).toString()
 }
 function stringifyDate(date){
   let string = ""
   string += a(date.getDate())
   string += "."
-  string += a(date.getMonth())
+  string += a(date.getMonth()+1)
   string += "."
   string += date.getFullYear()
   string += " "
-  string += a(date.getHours()-1)
+  string += a(date.getHours())
   string += ":"
-  string += a(date.getMinutes()-1)
+  string += a(date.getMinutes())
   return string;
 }
 
 export default function component(props){
   const router = useRouter()
   let start, end;
-  if(document.getElementById('start')){
+  if(document&&document.getElementById('start')){
     let Input = document.getElementById('start')
     let start_string = Input.value
     start = start_string.split(':').map((x)=>Number(x))
@@ -30,7 +30,7 @@ export default function component(props){
     start = start[0]*60 + start[1]
     
   }
-  if(document.getElementById('end')){
+  if(document&&document.getElementById('end')){
     let Input = document.getElementById('end')
     let start_string = Input.value
     end = start_string.split(':').map((x)=>Number(x))
@@ -38,7 +38,29 @@ export default function component(props){
     
     end = end[0]*60 + end[1]
   }
-  console.log(start, end)
+
+  let startQuery = -1
+  if(document.getElementById('start-d')&&(document.getElementById('start-d').value != '')){
+      let inputDate = document.getElementById('start-d').value//.split('-')
+      let date = new Date(inputDate)
+      startQuery = date.getTime()
+      //console.log(inputDate)
+  }
+  let endQuery = Infinity
+  if(document.getElementById('end-d')&&(document.getElementById('end-d').value != '')){
+    let inputDate = document.getElementById('end-d').value//.split('-')
+    let date = new Date(inputDate)
+    endQuery = date.getTime()
+  }
+  
+  //let dateQuery = -1
+  if((document.getElementById('date')&&(document.getElementById('date').value != ''))){
+    let inputDate = document.getElementById('date').value//.split('-')
+    let date = new Date(inputDate)
+    startQuery = date.getTime()
+    endQuery = date.getTime()+86400000//86400000 miliseconds is one day
+  }
+  //console.log(start, end)
   //console.log(props.records)
     let elements = [<h1 key={1} className="text-2xl font-bold mb-3 p-5 border-[#FCA311] border-b-8 w-full">
     Results:
@@ -71,6 +93,8 @@ export default function component(props){
                 let time = hour*60 +minute
 
                 let inDateBounds = (start<=time)&&(time<=end)
+
+
 
                 return (screening.cinema==document.getElementById('adresses').value)&&inDateBounds?<div className='p-1' key={JSON.stringify(screening)}>{stringifyDate(new Date(screening.timestamp))}</div>:<></>})}
             </div>

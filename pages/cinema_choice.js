@@ -1,16 +1,19 @@
 import { useState } from 'react';
+import { useRef } from 'react';
  
 const cinema_choice = () => {
     
     const [response, setResponse] = useState(null);
     const [working, setWorking] = useState(false);
     const [counter, setCounter] = useState(1)
+    let city = useRef(null)
     setInterval(() => {
         setCounter(counter+1)
     }, 200);
     
 
-    if((typeof window != 'undefined')&&(!working)&&(document.getElementById('city'))){
+    if((typeof window != 'undefined')&&(!working)&&(document.getElementById('city'))&&(document.getElementById('city').value !== city.current)){
+        city.current = document.getElementById('city').value
         setWorking(true)
         fetch("/api/cinema_choice", {
             method: "POST",
@@ -19,7 +22,7 @@ const cinema_choice = () => {
             })
         }).then((res)=>{
             
-            if(res.ok){
+            if(res.status == 200){
                 res.json().then((r_json)=>{
                     
                     setResponse(r_json)
