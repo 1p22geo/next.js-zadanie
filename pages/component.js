@@ -71,9 +71,9 @@ export default function component(props){
     for (let n = 0; n < props.records.length; n++) {
       const record = props.records[n];
       elements.push(
-        <Link href={'/movie?session='+router.query.session+'&movie='+record.title.replace(/ /g, '_')+"&cinema="+document.getElementById('adresses').value} key={n+2} className=" hover:bg-[#FCA311] p-3 px-6 box-border w-[25%] group">
+        <Link href={'/movie?session='+router.query.session+'&movie='+record.title.replace(/ /g, '_')+"&cinema="+document.getElementById('adresses').value} key={n+3} className=" hover:bg-[#FCA311] p-3 px-6 box-border w-[25%] group border-black border-b">
             <h4 className='font-bold text-l'>{record.title}</h4>
-            <p>{record.text.slice(0, 150-record.text.length)}</p>
+            <p className='h-24'>{record.text.slice(0, 100)+(((record.text.length)>100)?'...':'')}</p>
             <img src={record.image} className={'py-5'}/>
             <div className=''>
             <div className='overflow-scroll h-32'>
@@ -119,7 +119,7 @@ export default function component(props){
         </div>
     );
     }
-    let a = React.createElement("div", {className:"rounded-xl bg-[#E5E5E5] mt-10 border-[#FCA311] border-b-8 w-[70rem] flex flex-wrap"}, elements);
+    let a = React.createElement("div", {className:"rounded-xl bg-[#E5E5E5] mt-10 border-[#FCA311] border-b-8 w-[70rem] flex flex-wrap  border-collapse"}, elements);
     
     return a;
 }

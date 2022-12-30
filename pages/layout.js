@@ -1,20 +1,18 @@
 import * as React from 'react'
 import component from './component.js'
 import Router from 'next/router';
-export default class Layout2 extends React.Component{
-  constructor(props){
+export default class Layout2 extends React.Component {
+  constructor(props) {
     super(props);
-    this.state = {records:[], working:false}
+    this.state = { records: [], working: false }
   }
 
-  render(){
-    
-    if((!(this.state.working))&&(typeof document != 'undefined')){
-      this.a()
-    }
-    return React.createElement(component,{records: this.state.records})//React.createElement(component, this.state);
+  render() {
+    if ((!this.state.working) && (typeof window != 'undefined')) this.a()
+
+    return React.createElement(component, { records: this.state.records })//React.createElement(component, this.state);
   }
-  async a(){
+  async a() {
     this.state.working = true;
     /*
     //If I decide to use radio buttons again
@@ -74,102 +72,104 @@ export default class Layout2 extends React.Component{
     let searchinput = document.getElementById('searchbar');
     let searchstring;
     let query = {}
-    if(searchinput){
-      if(searchinput.value != ''){
+    if (searchinput) {
+      if (searchinput.value != '') {
         searchstring = searchinput.value
-        query = {$or:[{ title: { $regex: '(?i)'+searchstring} },{ description: { $regex: '(?i)'+searchstring} }]}
+        query = { $or: [{ title: { $regex: '(?i)' + searchstring } }, { description: { $regex: '(?i)' + searchstring } }] }
       }
-      else{
+      else {
         searchstring = false;
         query = {}
       }
     }
     let newQuery = query
-    if(document.getElementById('adresses')){
-      if(!((typeof document.getElementById('adresses').value == 'undefined')||(document.getElementById('adresses').value == ''))){
+    if (document.getElementById('adresses')) {
+      if (!((typeof document.getElementById('adresses').value == 'undefined') || (document.getElementById('adresses').value == ''))) {
 
         let start, end = [0]
-        if(document.getElementById('start')){
+        if (document.getElementById('start')) {
           let Input = document.getElementById('start')
           let start_string = Input.value
-          start = start_string.split(':').map((x)=>Number(x))
-          
+          start = start_string.split(':').map((x) => Number(x))
+
         }
-        if(start.length === 1) start=[0,0]
-        start = start[0]*60 + start[1]
-        if(document.getElementById('end')){
+        if (start.length === 1) start = [0, 0]
+        start = start[0] * 60 + start[1]
+        if (document.getElementById('end')) {
           let Input = document.getElementById('end')
           let start_string = Input.value
-          end = start_string.split(':').map((x)=>Number(x))
-          
+          end = start_string.split(':').map((x) => Number(x))
+
         }
-        if(end.length === 1) end=[23, 59]
-          
-        end = end[0]*60 + end[1]
+        if (end.length === 1) end = [23, 59]
+
+        end = end[0] * 60 + end[1]
 
         let startQuery = {}
-        if(document.getElementById('start-d')&&(document.getElementById('start-d').value != '')){
-            let inputDate = document.getElementById('start-d').value//.split('-')
-            let date = new Date(inputDate)
-            startQuery = {timestamp:{$gte:date.getTime()}}
-            //console.log(inputDate)
+        if (document.getElementById('start-d') && (document.getElementById('start-d').value != '')) {
+          let inputDate = document.getElementById('start-d').value//.split('-')
+          let date = new Date(inputDate)
+          startQuery = { timestamp: { $gte: date.getTime() } }
+          console.log(startQuery)
         }
         let endQuery = {}
-        if(document.getElementById('end-d')&&(document.getElementById('end-d').value != '')){
+        if (document.getElementById('end-d') && (document.getElementById('end-d').value != '')) {
           let inputDate = document.getElementById('end-d').value//.split('-')
           let date = new Date(inputDate)
-          endQuery = {timestamp:{$lte:date.getTime()}}
+          endQuery = { timestamp: { $lte: date.getTime() } }
         }
         let dateQuery;
-        if((document.getElementById('date')&&(document.getElementById('date').value != ''))){
+        if ((document.getElementById('date') && (document.getElementById('date').value != ''))) {
           let inputDate = document.getElementById('date').value//.split('-')
           let date = new Date(inputDate)
-          dateQuery = {timestamp:{$gte:date.getTime(), $lte:date.getTime()+86400000}}//86400000 miliseconds is one day
-          console.log(dateQuery)
+          dateQuery = { timestamp: { $gte: date.getTime(), $lte: date.getTime() + 86400000 } }//86400000 miliseconds is one day
+          //console.log(dateQuery)
         }
-        else{
-          dateQuery = {...startQuery, ...endQuery}
+        else {
+          dateQuery = { $and: [startQuery, endQuery] }
         }
         //console.log(dateQuery)
-        let cinemaquery = {}
-        if(document.getElementById('adresses').value) cinemaquery = {cinema:document.getElementById('adresses').value}
+        let cinemaquery = {}; if (document.getElementById('adresses').value) cinemaquery = { cinema: document.getElementById('adresses').value }
+        let genre_query = {}; if (document.getElementById('genres').value) genre_query = { genre: document.getElementById('genres').value }
 
-        newQuery = {$and:[{screening:{$elemMatch:{$and:[cinemaquery,{time:{$gte:start, $lte:end}}, dateQuery]}}}, query]}
+        newQuery = { $and: [{ screening: { $elemMatch: { $and: [cinemaquery, { time: { $gte: start, $lte: end } }, dateQuery] } } }, query, genre_query] }
       }
     }
-    if((document.getElementById('all'))&&(document.getElementById('all').checked)){newQuery = {}}
+    if ((document.getElementById('all')) && (document.getElementById('all').checked)) { newQuery = {} }
     //console.log('sending!')
     const response = await fetch("/api/db_read", {
       method: "POST",
-      body:JSON.stringify({query:newQuery, session:Router.query.session})
-  });
-  
-  if(response.status == 401){
-    this.setState({
-      records:[],
-      working:false
+      body: JSON.stringify({ query: newQuery, session: Router.query.session })
     });
-    Router.push('/');
-    return;
-  }
+
+    if (response.status == 401) {
+      this.setState({
+        records: [],
+        working: false
+      });
+      Router.push('/');
+      return;
+    }
     let json_response = await response.json();
     let arr = [];
     for (let n = 0; n < json_response.result.length; n++) {
-      const document = json_response.result[n];
+      const record = json_response.result[n];
       arr.push({
-        title:document.title,
-        text:document.description,
-        image:document.image,
-        genres:document.genre,
-        starring:document.starring,
-        screening:document.screening
+        title: record.title,
+        text: record.description,
+        image: record.image,
+        genres: record.genre,
+        starring: record.starring,
+        screening: record.screening
       });
     }
     //console.log(arr)
-    setTimeout(()=>{this.setState({
-      records:arr,
-      working:false
-    });}, 300)
-    
-    }
+    setTimeout(() => {
+      this.setState({
+        records: arr,
+        working: false
+      });
+    }, 300)
+
+  }
 }

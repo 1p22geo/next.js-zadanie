@@ -68,21 +68,7 @@ const movie_description = () => {
     }
     if(result.length===1){
         let all_reviews = result[0].reviews
-        all_reviews.sort((a,b)=>{
-            if(a>b){
-                return 1
-            }
-            else if(a<b){
-                return -1
-            }
-            else if(a===b){
-                return 0
-            }
-            else{
-                return undefined;
-            }
-            
-        })
+        ///all_reviews.sort((a,b)=>{if(a>b) return 1;else if(a<b) return -1;else if(a===b) return 0;})
         let l_reviews = [...all_reviews].splice(0, reviews)
         return(
             <>
@@ -112,7 +98,19 @@ const movie_description = () => {
             </h1>
             <div className='flex overflow-scroll'>
             <Add_screening/>
-            {result[0].screening.map((screening, index)=>{return screening.cinema==router.query.cinema?<div key={JSON.stringify(screening)+index} className=' flex-shrink-0 w-1/5 border-[10px] m-3 p-5 box-border border-[#FCA311] text-center justify-center'>{stringifyDate(screening.timestamp)}<br/>Sala {screening.movie_hall}</div> : <></>})}
+            {
+                result[0].screening
+                    .sort((a,b)=>{if(a.timestamp>b.timestamp) return 1;else if(a.timestamp<b.timestamp) return -1;else if(a.timestamp===b.timestamp) return 0;})
+                    .map((screening, index)=>{
+                        return screening.cinema==router.query.cinema
+                        ?
+                        <div key={JSON.stringify(screening)+index} className=' flex-shrink-0 w-1/5 border-[10px] m-3 p-5 box-border border-[#FCA311] text-center justify-center'>
+                            {stringifyDate(screening.timestamp)}<br/>Movie hall {screening.movie_hall}
+                        </div> 
+                        :
+                         <></>
+                    })
+            }
             </div>
             </div>
 

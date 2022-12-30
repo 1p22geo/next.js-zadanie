@@ -2,8 +2,8 @@ import { randomBytes } from 'crypto'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Link from 'next/link.js'
-import Movies from './movies.js'
-import Checkuser from './checkuser.js'
+import Movies from './sample'
+import Chairs from './chairs'
 import { GetServerSideProps } from 'next'
 //import Layout2 from './layout.js'
 var MD5 = require("crypto-js/md5")
@@ -15,6 +15,14 @@ var MD5 = require("crypto-js/md5")
 </form>
 */
 const Home: NextPage = () => {
+  let table2 = [
+    [{user:null, type:"normal"},{user:null, type:"normal"},{user:null, type:"normal"},{user:null, type:"normal"},{user:null, type:"normal"},{user:null, type:"normal"},{user:null, type:"normal"},{user:null, type:"normal"}],
+    [{user:null, type:"premium"},{user:null, type:"premium"},{user:null, type:"premium"},{user:null, type:"premium"},{user:null, type:"premium"},{user:null, type:"premium"},{user:'aa', type:"premium"},{user:'aa', type:"premium"},{user:null, type:"premium"}],
+    [{user:null, type:"normal"},{user:null, type:"normal"},{user:null, type:"normal"},{user:null, type:"normal"},{user:null, type:"normal"},{user:null, type:"normal"},{user:null, type:"normal"},{user:null, type:"normal"},{user:null, type:"normal"},{user:null, type:"normal"}],
+    [{user:null, type:"normal"},{user:null, type:"normal"},{user:'aa', type:"normal"},{user:'aa', type:"normal"},{user:'aa', type:"normal"},{user:null, type:"normal"},{user:null, type:"normal"},{user:null, type:"normal"},{user:null, type:"normal"},{user:null, type:"normal"},{user:null, type:"normal"}],
+    [{user:null, type:"premium"},{user:null, type:"premium"},{user:null, type:"premium"},{user:null, type:"premium"},{user:null, type:"premium"},{user:null, type:"premium"},{user:null, type:"premium"},{user:null, type:"premium"},{user:null, type:"premium"},{user:null, type:"premium"},{user:null, type:"premium"},{user:null, type:"premium"}],
+    [{user:null, type:"normal"},{user:null, type:"normal"},{user:null, type:"normal"},{user:null, type:"normal"},{user:null, type:"normal"},{user:null, type:"normal"},{user:null, type:"normal"},{user:null, type:"normal"},{user:null, type:"normal"},{user:null, type:"normal"},{user:null, type:"normal"}]
+  ]
   return (
     <div className='bg-black'>
     <div className="flex font-bold bg-[#14213D] p-5 w-full text-[#E5E5E5] pb-12 justify-between border-[#FCA311] border-b-8">
@@ -40,17 +48,10 @@ const Home: NextPage = () => {
           
       </div>
 
-      <div className='p-5 mt-10 bg-[#E5E5E5] rounded-xl border-[#FCA311] border-b-8'>
-        <h1 className="text-2xl font-bold mb-3">
-          We have good movies
-        </h1>
-        <p>Yes very good</p>
+    
         <Movies/>
-        <Checkuser/>
-          
-      <div>
-      </div>
-      </div>
+         
+        <Chairs chairs={table2}/>
       
       </main>
     </div>
