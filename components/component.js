@@ -71,12 +71,12 @@ export default function component(props){
     for (let n = 0; n < props.records.length; n++) {
       const record = props.records[n];
       elements.push(
-        <Link href={'/movie?session='+router.query.session+'&movie='+record.title.replace(/ /g, '_')+"&cinema="+document.getElementById('adresses').value} key={n+3} className=" hover:bg-[#FCA311] p-3 px-6 box-border w-[25%] group border-black border-b">
+        <Link href={'/movie?session='+router.query.session+'&movie='+record.title.replace(/ /g, '_')+"&cinema="+document.getElementById('adresses').value} key={n+3} className=" hover:bg-[#FCA311] p-3 overscroll-none px-6 box-border w-[25%] group border-black border-b">
             <h4 className='font-bold text-l'>{record.title}</h4>
             <p className='h-24'>{record.text.slice(0, 100)+(((record.text.length)>100)?'...':'')}</p>
             <img src={record.image} className={'py-5'}/>
             <div className=''>
-            <div className='overflow-scroll h-32'>
+            <div className='overflow-auto h-32'>
             <h4 className='font-bold text-l'>Genres:</h4>
             <ul className='list-disc list-inside'>
               {record.genres.map((genre)=>{return <li key={genre}>{genre}</li>})}

@@ -1,13 +1,13 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import Login from './login.js';
-import Layout2 from './layout.js';
+import Login from '../components/login.js';
+import Layout2 from '../components/layout.js';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import Checkuser from './checkuser.js';
-import Admin_back from "./admin_back";
-import Cinema_choice from "./cinema_choice";
-import Day_select from './day_select';
+import Checkuser from '../components/checkuser.js';
+import Admin_back from "../components/admin_back";
+import Cinema_choice from "../components/cinema_choice";
+import Day_select from '../components/day_select';
 var MD5 = require("crypto-js/md5");
 /*
 <form className='p-5 mt-10 bg-[#E5E5E5] rounded-xl'>

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import component from './component.js'
+import component from '../components/component'
 import Router from 'next/router';
 export default class Layout2 extends React.Component {
   constructor(props) {

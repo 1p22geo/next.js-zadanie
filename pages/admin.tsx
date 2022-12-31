@@ -1,9 +1,9 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import Admincheck from './admincheck.js'
+import Admincheck from '../components/admincheck'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
-import Checkuser from './checkuser.js'
+import Checkuser from '../components/checkuser.js'
 var MD5 = require("crypto-js/md5")
 /*
 <form className='p-5 mt-10 bg-[#E5E5E5] rounded-xl'>

@@ -1,11 +1,11 @@
 import { randomBytes } from 'crypto'
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import Movie from "./movie_description"
+import Movie from "../components/movie_description"
 import { useRouter } from 'next/router'
 import Link from 'next/link'
-import Checkuser from './checkuser.js'
-import Admin_back from "./admin_back"
+import Checkuser from '../components/checkuser.js'
+import Admin_back from "../components/admin_back"
 var MD5 = require("crypto-js/md5")
 /*
 <form className='p-5 mt-10 bg-[#E5E5E5] rounded-xl'>

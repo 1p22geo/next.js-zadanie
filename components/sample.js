@@ -23,12 +23,12 @@ class Sample extends React.Component {
                 </h1>
                 {this.state.result.map((record, n) => {
                     return (
-                        <Link href={'/login_page'} key={n + 3} className=" hover:bg-[#FCA311] p-3 px-6 box-border w-1/4 group border-black border-b">
+                        <Link href={'/login_page'} key={n + 3} className=" hover:bg-[#FCA311] p-3 px-6 box-border w-1/4 group border-black border-b overscroll-none">
                             <h4 className='font-bold text-l'>{record.title}</h4>
                             <p className='h-24'>{record.description.slice(0, 100) + (((record.description.length) > 100) ? '...' : '')}</p>
                             <img src={record.image} className={'py-5'} />
                             <div className=''>
-                                <div className='overflow-scroll h-32'>
+                                <div className='overflow-auto h-32'>
                                     <h4 className='font-bold text-l'>Genres:</h4>
                                     <ul className='list-disc list-inside'>
                                         {record.genre.map((genre) => { return <li key={genre}>{genre}</li> })}

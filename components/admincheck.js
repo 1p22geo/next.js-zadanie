@@ -1,5 +1,5 @@
 import * as React from 'react'
-import component from './component.js'
+import component from './component'
 import Router from 'next/router';
 function getRandomInt(min, max) {
   return min + Math.floor(Math.random() * (max-min));

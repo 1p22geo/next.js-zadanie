@@ -2,7 +2,7 @@ import { randomBytes } from 'crypto'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Link from 'next/link';
-import Login from './login.js'
+import Login from '../components/login.js'
 //import Layout2 from './layout.js'
 var MD5 = require("crypto-js/md5")
 /*
