@@ -115,11 +115,13 @@ export default function component(props){
       elements.push(
         <div key={2} className='flex flex-col  w-full'>
         <h1 key={1} className="text-2xl font-bold mb-3 p-5">No matching results found</h1>
-        <img src={'vercel.svg'} className={'p-10'}/>
+        
         </div>
     );
     }
     let a = React.createElement("div", {className:"rounded-xl bg-[#E5E5E5] mt-10 border-[#FCA311] border-b-8 w-[70rem] flex flex-wrap  border-collapse"}, elements);
-    
+    if(!(typeof window == 'undefined')&&( document.getElementById('loading'))){
+    document.getElementById('loading').style.display = 'none'
+    }
     return a;
 }

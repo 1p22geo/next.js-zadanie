@@ -28,7 +28,7 @@ const Home: NextPage = () => {
     <div className="flex font-bold bg-[#14213D] p-5 w-full text-[#E5E5E5] pb-12 justify-between border-[#FCA311] border-b-8">
           <h1 className="text-6xl"  id='header'>Database connection</h1>
           <Link href="/login_page" className='text-sky-200 p-2 self-center '>Log in</Link>
-          <img src='vercel.svg' className='pr-12'/>
+          
     </div>
     
     <div className="flex min-h-screen items-center justify-center bg-[#000000]">
@@ -41,9 +41,9 @@ const Home: NextPage = () => {
         
       <div className='p-5 mt-10 bg-[#E5E5E5] rounded-xl border-[#FCA311] border-b-8 flex flex-col'>
         <h1 className="text-2xl font-bold mb-3">
-          We are the top database company in our company
+          We are the top cinema in the world!
         </h1>
-        <p>Yes, absolutely</p>
+        <p className=' text-slate-800 font-extralight'>At least, we believe so.</p>
         <img className='h-24' src='ok-hand-svgrepo-com.svg'></img>
           
       </div>

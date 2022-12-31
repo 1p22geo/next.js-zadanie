@@ -24,7 +24,7 @@ const Page: NextPage = () => {
           <Link href="/" className='text-sky-200 p-2 self-center'>Log out</Link>
           <Link href={"/logged_in?session="+router.query.session} className='text-sky-200 p-2 self-center'>Back to movies</Link>
 
-          <img src='vercel.svg' className='pr-12'/>
+          
     </div>
     
     <div className="flex min-h-screen items-center justify-center bg-[#000000]">

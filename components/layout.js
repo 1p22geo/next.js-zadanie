@@ -5,15 +5,20 @@ export default class Layout2 extends React.Component {
   constructor(props) {
     super(props);
     this.state = { records: [], working: false }
+    
   }
-
+  componentDidMount(){
+    window.LayoutComponent = this;
+  }
   render() {
-    if ((!this.state.working) && (typeof window != 'undefined')) this.a()
+    //if ((!this.state.working) && (typeof window != 'undefined')) this.a()
 
     return React.createElement(component, { records: this.state.records })//React.createElement(component, this.state);
   }
-  async a() {
+  async update_data() {
+    console.log('a')
     this.state.working = true;
+    document.getElementById('loading').style.display = 'block'
     /*
     //If I decide to use radio buttons again
     let radios = document.getElementsByName('buttons');
@@ -75,7 +80,7 @@ export default class Layout2 extends React.Component {
     if (searchinput) {
       if (searchinput.value != '') {
         searchstring = searchinput.value
-        query = { $or: [{ title: { $regex: '(?i)' + searchstring } }, { description: { $regex: '(?i)' + searchstring } }] }
+        query = { title: { $regex: '(?i)' + searchstring } }
       }
       else {
         searchstring = false;
@@ -83,6 +88,7 @@ export default class Layout2 extends React.Component {
       }
     }
     let newQuery = query
+    console.log('b')
     if (document.getElementById('adresses')) {
       if (!((typeof document.getElementById('adresses').value == 'undefined') || (document.getElementById('adresses').value == ''))) {
 
@@ -135,13 +141,15 @@ export default class Layout2 extends React.Component {
         newQuery = { $and: [{ screening: { $elemMatch: { $and: [cinemaquery, { time: { $gte: start, $lte: end } }, dateQuery] } } }, query, genre_query] }
       }
     }
+    console.log('c')
     if ((document.getElementById('all')) && (document.getElementById('all').checked)) { newQuery = {} }
     //console.log('sending!')
+    console.log('d')
     const response = await fetch("http://localhost:3000/api/db_read", {
       method: "POST",
       body: JSON.stringify({ query: newQuery, session: Router.query.session })
     });
-
+    console.log('e')
     if (response.status == 401) {
       this.setState({
         records: [],
@@ -150,6 +158,7 @@ export default class Layout2 extends React.Component {
       Router.push('/');
       return;
     }
+    console.log('f')
     let json_response = await response.json();
     let arr = [];
     for (let n = 0; n < json_response.result.length; n++) {
@@ -163,13 +172,14 @@ export default class Layout2 extends React.Component {
         screening: record.screening
       });
     }
+    
     //console.log(arr)
-    setTimeout(() => {
+    
       this.setState({
         records: arr,
         working: false
       });
-    }, 300)
+      document.getElementById('loading').style.display = 'none'
 
   }
 }

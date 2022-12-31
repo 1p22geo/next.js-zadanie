@@ -19,7 +19,7 @@ const Home: NextPage = () => {
     <div className="flex font-bold bg-[#14213D] p-5 w-full text-[#E5E5E5] pb-12 justify-between border-[#FCA311] border-b-8">
           <h1 className="text-6xl">Database connection</h1>
           <Link href="/" className='text-sky-200 p-2 self-center '>Go back</Link>
-          <img src='vercel.svg' className='pr-12'/>
+          
     </div>
     
     <div className="flex min-h-screen items-center justify-center bg-[#000000]">
@@ -33,43 +33,10 @@ const Home: NextPage = () => {
       <Login/>
         
       <div className='p-5 mt-10 bg-[#E5E5E5] rounded-xl border-[#FCA311] border-b-8'>
-        <h1 className="text-2xl font-bold mb-3">
-          Sign in:
-        </h1>
-        <p id='label'/>
-        <form>
-          <p className='p-2'>Username: <input className='p-1 bg-slate-400 text-white ml-1 focus:bg-[#FCA311]' type={'text'} id={'Username'} name={'Username'}/><br/></p>
-          <p className='p-2'>Password: <input className='p-1 bg-slate-400 text-white ml-1 focus:bg-[#FCA311]' type={'text'} id={'Password'} name={'Password'}/><br/></p>
-        </form>
-          <button className='bg-[#FCA311] rounded-md p-1 active:bg-slate-300' onClick={async ()=>{
-            let nameInput = document.getElementById('Username') as HTMLInputElement;
-            let name;
-            if(nameInput){
-              name = nameInput.value
-            }
-            let passwordInput = document.getElementById('Password') as HTMLInputElement;
-            let password;
-            if(passwordInput){
-              password = passwordInput.value
-            }
-            let salt = randomBytes(32).toString('hex')
-            let md5 = MD5(password+salt).toString()
-            
-            let res = await fetch("http://localhost:3000/api/add_user", {
-              method: "POST",
-              body:JSON.stringify({name:name, md5:md5, salt:salt})
-          })
-          if(res.status === 409){
-            //409 conflict - user already exists
-            document.getElementById('label')!.innerHTML = "User already exists"
-          }
-          else if(res.status === 201){
-            (document.getElementById('Username') as HTMLInputElement)!.value = '';
-            (document.getElementById('Password') as HTMLInputElement)!.value = '';
-            document.getElementById('label')!.innerHTML = "User created! You can now log in"
-          }
-          }}>Submit data</button>
-          </div>
+        <Link href={'/sign_in_page'} className='text-sky-500'>
+          Or register if you do not yet have an account
+        </Link>
+      </div>
 
           
         
