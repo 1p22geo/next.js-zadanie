@@ -35,6 +35,19 @@ export default async function handler(req, res) {
         }
       }
     )
+    let cinema = await db.collection('cinemas').find({code:body.screening.cinema}).toArray()
+    console.log(cinema)
+    if(cinema.length !== 1){
+      res.status(400).json({})
+      return;
+    }
+    let chairs = cinema[0].movie_halls[body.screening.movie_hall]
+    await db.collection('screenings').insertOne(
+      {
+        ...body.screening,
+        chairs: chairs
+      }
+    )
     await client.close()
     res.status(201).json({})
   }

@@ -6,7 +6,7 @@ class Sample extends React.Component {
         this.state = { result: [] }
     }
     componentDidMount() {
-        fetch("/api/sample", {
+        fetch("http://localhost:3000/api/sample", {
             method: "GET"
         }).then(res => {
             res.json().then(r_json => {

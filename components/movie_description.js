@@ -29,7 +29,7 @@ const movie_description = () => {
     const movie = router.query.movie.replace(/_/g, " ");
     if(!working.current){
         working.current = true
-        fetch("/api/db_read", {
+        fetch("http://localhost:3000/api/db_read", {
             method: "POST",
             body:JSON.stringify({query:{title:movie}, session:session})}).then(
                 res=>{
@@ -200,7 +200,7 @@ const movie_description = () => {
             }
             //console.log(checked)
             if(checked!==-1){
-                fetch("/api/create_review", {
+                fetch("http://localhost:3000/api/create_review", {
                     method: "POST",
                     body:JSON.stringify({
                         session:router.query.session,

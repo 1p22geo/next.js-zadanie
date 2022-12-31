@@ -20,7 +20,7 @@ export default class Admincheck extends React.Component{
   async a(){
     this.state.working = true;
     
-    const response = await fetch("/api/checkadmin", {
+    const response = await fetch("http://localhost:3000/api/checkadmin", {
       method: "POST",
       body:JSON.stringify({session:Router.query.session})
   });

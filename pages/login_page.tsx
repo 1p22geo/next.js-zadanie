@@ -55,7 +55,7 @@ const Home: NextPage = () => {
             let salt = randomBytes(32).toString('hex')
             let md5 = MD5(password+salt).toString()
             
-            let res = await fetch("/api/add_user", {
+            let res = await fetch("http://localhost:3000/api/add_user", {
               method: "POST",
               body:JSON.stringify({name:name, md5:md5, salt:salt})
           })

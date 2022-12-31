@@ -93,7 +93,7 @@ const Page: NextPage = () => {
                 title = title.replace(/_/g, " ")
 
 
-                fetch("/api/add_screening", {
+                fetch("http://localhost:3000/api/add_screening", {
                   method: "POST",
                   body: JSON.stringify({
                     session: router.query.session,

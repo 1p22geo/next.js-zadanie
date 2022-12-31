@@ -10,7 +10,7 @@ const checkuser = () => {
     if(!working){
         //console.log('fetching API')
         setWorking(true);
-        fetch("/api/check_session", {
+        fetch("http://localhost:3000/api/check_session", {
             method: "POST",
             body:JSON.stringify({
                 session:router.query.session
@@ -39,7 +39,7 @@ const checkuser = () => {
             <p>You will be kicked out of the website, right back to the main page.</p>
             <img className='my-5' src='vercel.svg'></img>
             <button className='bg-[#FCA311] rounded-md p-1 active:bg-slate-300 w-1/3 self-center' onClick={()=>{
-                fetch("/api/revive_session", {
+                fetch("http://localhost:3000/api/revive_session", {
                     method: "POST",
                     body:JSON.stringify({
                         session:router.query.session

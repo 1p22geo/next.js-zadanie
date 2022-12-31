@@ -24,7 +24,7 @@ const login = (props) => {
               password = ageInput.value
             }
 
-            let results = await fetch("/api/fetch_salt", {
+            let results = await fetch("http://localhost:3000/api/fetch_salt", {
                 method: "POST",
                 body:JSON.stringify({user:name})
             })
@@ -39,7 +39,7 @@ const login = (props) => {
             //let salt = record.salt
             let md5 = MD5(password+salt).toString()
 
-            let res = await fetch("/api/create_session", {
+            let res = await fetch("http://localhost:3000/api/create_session", {
                 method: "POST",
                 body:JSON.stringify({
                     user:name,

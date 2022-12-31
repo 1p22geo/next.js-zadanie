@@ -120,7 +120,7 @@ const Page: NextPage = () => {
               const base64: string = await toBase64(file) as string;
 
               const fileData = { base64, fileName: file.name };
-              let res = await fetch("/api/save_file", {
+              let res = await fetch("http://localhost:3000/api/save_file", {
                 method: "POST",
                 body:JSON.stringify({
                   file:fileData,
@@ -130,7 +130,7 @@ const Page: NextPage = () => {
               });
               let r_json = await res.json()
               filename = r_json.filename
-              fetch("/api/db_write", {
+              fetch("http://localhost:3000/api/db_write", {
                 method: "POST",
                 body:JSON.stringify({doc:{title:title, description:description, image:filename, genre:genres, starring:starring, reviews:[], screening:[]}, session:router.query.session})
             })

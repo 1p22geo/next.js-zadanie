@@ -137,7 +137,7 @@ export default class Layout2 extends React.Component {
     }
     if ((document.getElementById('all')) && (document.getElementById('all').checked)) { newQuery = {} }
     //console.log('sending!')
-    const response = await fetch("/api/db_read", {
+    const response = await fetch("http://localhost:3000/api/db_read", {
       method: "POST",
       body: JSON.stringify({ query: newQuery, session: Router.query.session })
     });

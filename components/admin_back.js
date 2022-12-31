@@ -9,7 +9,7 @@ const admin_back = () => {
     const [working, setWorking] = useState(false);
     if(!working){
         setWorking(true)
-        fetch("/api/checkadmin", {
+        fetch("http://localhost:3000/api/checkadmin", {
             method: "POST",
             body:JSON.stringify({
                 session:router.query.session

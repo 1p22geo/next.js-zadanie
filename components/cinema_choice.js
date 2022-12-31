@@ -13,7 +13,7 @@ const cinema_choice = () => {
     if ((typeof window != 'undefined') && (!working) && (document.getElementById('city')) && (document.getElementById('city').value !== city.current)) {
         city.current = document.getElementById('city').value
         setWorking(true)
-        fetch("/api/cinema_choice", {
+        fetch("http://localhost:3000/api/cinema_choice", {
             method: "POST",
             body: JSON.stringify({
                 city: { $regex: document.getElementById('city').value, $options: 'i' }
