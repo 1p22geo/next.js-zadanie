@@ -14,7 +14,7 @@ export default class Layout2 extends React.Component {
     
   }
   componentDidMount(){
-    window.LayoutComponent = this;
+    setTimeout(this.update_data.bind(this), 200)
   }
   render() {
     let button = <button className=' p-2 bg-[#FCA311] rounded-xl mt-4' onClick={this.update_data.bind(this)}>Search</button>

@@ -37,7 +37,7 @@ export default class Admincheck extends React.Component{
     setTimeout(()=>{this.setState({
       authorised:true,
       working:false
-    });}, 2000)
+    });}, 10000)
     
     }
 }

@@ -1,12 +1,16 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRef } from 'react';
 import { useRouter } from 'next/router';
  
 const checkuser = () => {
     let [working, setWorking] = useState(false);
+    let [header, setHeader] = useState("Logged in");
     let time = useRef(-1)
     const router = useRouter()
     //console.log('rendering')
+    useEffect(()=>{
+        document.getElementById('header').innerHTML = header
+    })
     if(!working){
         //console.log('fetching API')
         setWorking(true);
@@ -23,8 +27,13 @@ const checkuser = () => {
                     return (<></>);
                 }
                 time.current = res_json.time
-                document.getElementById('header').innerHTML = "Logged in as "+res_json.user
-                setTimeout(()=>{setWorking(false);}, 1000)
+                setHeader("Logged in as "+res_json.user)
+                if(res_json.time>70000){
+                    setTimeout(()=>{setWorking(false);}, 10000)
+                }
+                else{
+                    setTimeout(()=>{setWorking(false);}, 1000)
+                }
 
             })
         })

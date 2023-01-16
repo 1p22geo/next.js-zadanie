@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import Movie from "../components/movie_description"
+import Movie from "../components/screening_description"
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import Checkuser from '../components/checkuser.js'

@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useRef } from 'react';
+import Link from 'next/link';
 import Add_screening from './add_screening_component'
 function a(x){
     return ((x).toString().length===1)?"0"+(x).toString():(x).toString()
@@ -102,13 +103,13 @@ const movie_description = () => {
                 result[0].screening
                     .sort((a,b)=>{if(a.timestamp>b.timestamp) return 1;else if(a.timestamp<b.timestamp) return -1;else if(a.timestamp===b.timestamp) return 0;})
                     .map((screening, index)=>{
-                        return screening.cinema==router.query.cinema
+                        return ((screening.cinema==router.query.cinema)
                         ?
-                        <div key={JSON.stringify(screening)+index} className=' flex-shrink-0 w-1/5 border-[10px] m-3 p-5 box-border border-[#FCA311] text-center justify-center'>
+                        (<Link href={router.asPath.replace(/movie/, "screening")+'&timestamp='+screening.timestamp+'&movie_hall='+screening.movie_hall+'&image='+result[0].image} key={JSON.stringify(screening)+index} className=' flex-shrink-0 w-1/5 border-[10px] m-3 p-5 box-border border-[#FCA311] text-center justify-center'>
                             {stringifyDate(screening.timestamp)}<br/>Movie hall {screening.movie_hall}
-                        </div> 
+                        </Link> )
                         :
-                         <></>
+                        ( <></>))
                     })
             }
             </div>

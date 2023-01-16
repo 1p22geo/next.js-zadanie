@@ -16,7 +16,7 @@ const add_screening_component = () => {
                 session:router.query.session
             })})
         .then((res)=>{
-            if(res.status==200){setTimeout(()=>{setAuth(true);setWorking(false)}, 700)}
+            if(res.status==200){setAuth(true)}
             else{setAuth(false)}
         })
     }

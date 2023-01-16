@@ -27,6 +27,18 @@ export default async function handler(req, res) {
   console.log(authorised)
 
   if (authorised) {
+    let screenings = await db.collection('screenings').find(
+      {
+        cinema:body.screening.cinema,
+        timestamp:body.screening.timestamp,
+        movie_hall:body.screening.movie_hall
+      }).toArray()
+    if(screenings.length !== 0){
+      authorised = false;
+      await client.close()
+      res.status(409).json({})
+      return;
+    }
     await collection.updateOne(
       { title: body.title },
       {
@@ -45,7 +57,8 @@ export default async function handler(req, res) {
     await db.collection('screenings').insertOne(
       {
         ...body.screening,
-        chairs: chairs
+        chairs: chairs,
+        movie:body.title
       }
     )
     await client.close()

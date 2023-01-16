@@ -3,6 +3,7 @@ import Link from "next/link";
 function chairs(props) {
   let table2 = props.chairs
   return (<div className='p-5 mt-10 bg-[#E5E5E5] rounded-xl border-[#FCA311] border-b-8 '>
+    {typeof props.hall != 'undefined' ?<h1 className="text-2xl text-bold mb-4">Movie hall {props.hall}</h1>:<></>}
     {table2.map((row, index) => {
       return (
         <div className='flex mx-auto justify-center' key={'row '+index}>
