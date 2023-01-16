@@ -91,9 +91,7 @@ const Page: NextPage = () => {
                 Only select one day <input type={'checkbox'} id='multiple' />
               </div>
             </div>
-            <button onClick={()=>{
-              (window as any).LayoutComponent.update_data()
-            }}>Search</button>
+            
           </form>
           <div className='w-1/3 mt-10 p-5 bg-[#E5E5E5] rounded-xl border-[#FCA311] border-b-8' id='loading'>
           <h1 className="text-2xl font-bold mb-3">

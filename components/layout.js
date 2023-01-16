@@ -13,7 +13,14 @@ export default class Layout2 extends React.Component {
   render() {
     //if ((!this.state.working) && (typeof window != 'undefined')) this.a()
 
-    return React.createElement(component, { records: this.state.records })//React.createElement(component, this.state);
+    return (
+      <>
+      <button className=' text-slate-200' onClick={()=>{
+              this.update_data()
+            }}>Search</button>
+        {React.createElement(component, { records: this.state.records })}
+      </>
+    )
   }
   async update_data() {
     console.log('a')
