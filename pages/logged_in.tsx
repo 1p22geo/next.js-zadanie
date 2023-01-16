@@ -39,72 +39,7 @@ const Page: NextPage = () => {
 
 
 
-          <form className='p-5 mt-10 bg-[#E5E5E5] rounded-xl border-[#FCA311] border-b-8' >
-            <h1 className="text-2xl font-bold mb-3">
-              Search for movies
-            </h1>
-            <datalist id='datalist'>
-              <option value='documentary'/>
-              <option value='comedy'/>
-              <option value='sport'/>
-              <option value='music'/>
-              <option value='impression'/>
-              <option value='science fiction'/>
-              <option value='disaster movie'/>
-              <option value='stand-up'/>
-              <option value='satire'/>
-            </datalist>
-            <p className='p-2'>Title<input className='p-1 bg-slate-400 text-white ml-1 focus:bg-[#FCA311]' type={'text'} id={'searchbar'} name={'searchbar'} /><br /></p>
-            <p className='p-2'>Genre<input className='p-1 bg-slate-400 text-white ml-1 focus:bg-[#FCA311]' list={'datalist'} type={'text'} id={'genres'} name={'genre'} />
-            <br /></p>
-            
-            <h1 className="text-2xl font-bold mb-3">
-              Where can you go
-            </h1>
-
-            <p className='p-2'>City: <input className='p-1 bg-slate-400 text-white ml-1 focus:bg-[#FCA311]' type={'text'} id={'city'} name={'city'} /><br /></p>
-            <p className='p-2'>Adress: <Cinema_choice /><br /></p>
-            <p className='p-2'>Or show all movies: <input type={'checkbox'} id='all' /><br /></p>
-            <h1 className="text-2xl font-bold mb-3">
-              When do you have time
-            </h1>
-            <div className='flex justify-evenly text-center'>
-              <div>
-                <h1 className="text-md font-bold mb-3 dropdown">
-                  Select hours
-                  <span className='dropdown-content'>
-                    You can see movies from different days, but only the ones within those hours.
-                  </span>
-                </h1>
-                <p className='p-2'>Start: <input className='p-1 bg-slate-400 text-white ml-1 focus:bg-[#FCA311]' type={'time'} id={'start'} name={'start'} /><br /></p>
-                <p className='p-2'>End: <input className='p-1 bg-slate-400 text-white ml-1 focus:bg-[#FCA311]' type={'time'} id={'end'} name={'end'} /><br /></p>
-              </div>
-              <div>
-                <h1 className="text-md font-bold mb-3 dropdown">
-                  Select days
-                  <span className='dropdown-content'>
-                    You can see movies from the selected hours, within all the given days
-                  </span>
-                </h1><br />
-                
-                <Day_select />
-                Only select one day <input type={'checkbox'} id='multiple' />
-              </div>
-            </div>
-            
-          </form>
-          <div className='w-1/3 mt-10 p-5 bg-[#E5E5E5] rounded-xl border-[#FCA311] border-b-8' id='loading'>
-          <h1 className="text-2xl font-bold mb-3">
-              Loading...
-            </h1>
-              <div className='w-48 h-48 bg-emerald-400 mx-auto rounded-full pt-8 animate-spin'>
-              
-                <div className=' w-32 h-32 bg-[#E5E5E5] mx-auto rounded-full'>
-                  
-                </div>
-                <div className='h-8 w-4 bg-emerald-100 translate-x-24'></div>
-              </div>
-          </div>
+          
           <Layout2 />
         </main>
       </div>
