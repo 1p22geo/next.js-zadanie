@@ -10,7 +10,7 @@ const login = (props) => {
           Log in:
         </h1>
         <p className='p-2'>Username: <input className='p-1 bg-slate-400 text-white ml-1 focus:bg-[#FCA311]' type={'text'} id={'login_Username'} name={'Username'}/><br/></p>
-        <p className='p-2'>Password: <input className='p-1 bg-slate-400 text-white ml-1 focus:bg-[#FCA311]' type={'text'} id={'login_Password'} name={'Password'}/><br/></p>
+        <p className='p-2'>Password: <input className='p-1 bg-slate-400 text-white ml-1 focus:bg-[#FCA311]' type={'password'} id={'login_Password'} name={'Password'}/><br/></p>
         <button className='bg-[#FCA311] rounded-md p-1 active:bg-slate-300'  onClick={
             async ()=>{
             let nameInput = document.getElementById('login_Username');

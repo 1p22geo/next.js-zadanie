@@ -1,4 +1,16 @@
+const fs = require('fs');
 const { MongoClient } = require('mongodb');
+function base64ToFile(file) {
+  const fileContents = file.base64.replace(/^data:.{2,20};base64,/, "");
+
+  
+  fs.mkdirSync("./public/uploads", { recursive: true });
+  const aaa = `uploads/${Date.now().toString() + file.fileName}`
+  const fileName = `./public/${aaa}`
+ 
+  fs.writeFile(fileName, fileContents, 'base64', function (err) { console.log(err) });
+  return aaa
+ }
 var MD5 = require("crypto-js/md5")
 import { randomBytes } from 'crypto'
 export default async function handler(req, res) {
@@ -36,14 +48,21 @@ export default async function handler(req, res) {
       res.status(400).json({reason:4});
       return;
     }
+    if(!(body.email.match(/^[\w-\.]+@[\w-]+\.+[\w-]{2,4}$/))){
+      await client.close();
+      res.status(400).json({reason:5});
+      return;
+    }
     let salt = randomBytes(32).toString('hex')
     let md5 = MD5(body.password+salt).toString()
+    let x = base64ToFile(body.file)
     collection.insertOne(
       {
         name:body.name,
         salt:salt,
         md5:md5,
-        type:"user"
+        email:body.email,
+        image:x
       }).then((response)=>{
         setTimeout(async ()=>{await client.close()}, 1000);
     

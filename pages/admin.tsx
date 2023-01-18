@@ -22,10 +22,12 @@ const Page: NextPage = () => {
   const router = useRouter()
   return (
     <div className='bg-black'>
-    <div className="flex font-bold bg-[#14213D] p-5 w-full text-[#E5E5E5] pb-12 justify-between border-[#FCA311] border-b-8">
-          <h1 className="text-6xl self-center"  id='header'>Logged in</h1>
-          <Link  href={"/logged_in?session="+router.query.session} className='text-sky-200 p-2 self-center'>Browse movies</Link>
-          <Link href="/" className='text-sky-200 p-2 self-center'>Log out</Link>
+    <div className="flex font-bold bg-[#14213D] p-5 w-full text-[#E5E5E5] justify-end border-[#FCA311] border-b-8">
+          
+          <Link  href={"/logged_in?session="+router.query.session} className='text-sky-200 p-2 mx-6 self-center'>Browse movies</Link>
+          <Link href="/" className='text-sky-200 p-2 mx-6 self-center'>Log out</Link>
+          <div className='flex flex-col'><img className=' h-14' id='image' src='none'></img><h1 className="text-2xl self-center" id='header'>Logged in</h1></div>
+          
           
     </div>
     
@@ -135,7 +137,7 @@ const Page: NextPage = () => {
                 body:JSON.stringify({doc:{title:title, description:description, image:filename, genre:genres, starring:starring, reviews:[], screening:[]}, session:router.query.session})
             })
             alert("Added movie")
-              //const result = await api.post("/foo", fileData, name: "Salih", massage: "Hello World"});
+              
             }
             
             

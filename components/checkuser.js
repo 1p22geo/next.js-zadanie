@@ -4,12 +4,14 @@ import { useRouter } from 'next/router';
  
 const checkuser = () => {
     let [working, setWorking] = useState(false);
-    let [header, setHeader] = useState("Logged in");
+    let [header, setHeader] = useState("");
+    let [img, setImg] = useState(null);
     let time = useRef(-1)
     const router = useRouter()
     //console.log('rendering')
     useEffect(()=>{
         document.getElementById('header').innerHTML = header
+        document.getElementById('image').src = img
     })
     if(!working){
         //console.log('fetching API')
@@ -27,7 +29,8 @@ const checkuser = () => {
                     return (<></>);
                 }
                 time.current = res_json.time
-                setHeader("Logged in as "+res_json.user)
+                setHeader(res_json.user)
+                setImg(res_json.image)
                 if(time.current<=540000){
                     setTimeout(()=>{setWorking(false);}, 10000)
                 }

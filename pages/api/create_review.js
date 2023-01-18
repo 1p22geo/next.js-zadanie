@@ -14,6 +14,7 @@ export default async function handler(req, res) {
   
   const sessions = client.db('cinema').collection('sessions')
   const session = await sessions.find({session_id:body.session}).toArray()
+  
   const timestamp = Date.now()
   let authorised = false;
   
@@ -24,14 +25,16 @@ export default async function handler(req, res) {
       authorised = true;
     }
   }
-  
   if(authorised){
+  let user = await client.db('cinema').collection('users').find({name:session[0].user}).toArray()[0]
+
     await collection.updateOne(
       {title:body.title},
       {$push:{
         reviews:{
           ...body.review,
-          author:session[0].user
+          author:session[0].user,
+          image:user.image
         }
       }}
     )

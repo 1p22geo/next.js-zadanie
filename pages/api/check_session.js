@@ -17,10 +17,12 @@ try{body = JSON.parse(req.body)}
   }
   client.close()
   if(authorised){
+    let user = (await client.db('cinema').collection('users').find({name:session[0].user}).toArray())[0]
     res.status(200).json({
       user:session[0].user,
       time:timestamp-session[0].timestamp,
-      active:timestamp-session[0].timestamp<600000
+      active:timestamp-session[0].timestamp<600000,
+      image:user.image
     })
   }
   else{

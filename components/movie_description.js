@@ -137,7 +137,7 @@ const movie_description = () => {
                     }
                     </div>
                     <div className='flex justify-center'>
-                        <img src='ok-hand-svgrepo-com.svg' className='h-24 shadow-2xl bg-slate-300 rounded-full p-2'></img>
+                        <img src={review.image} className='h-24 shadow-2xl bg-slate-300 rounded-full p-2'></img>
                         <p className='self-center ml-3 font-semibold'>{review.author}</p>
                     </div>
                     
