@@ -14,7 +14,7 @@ export default class Layout2 extends React.Component {
     
   }
   componentDidMount(){
-    setTimeout(this.update_data.bind(this), 200)
+    setTimeout(this.update_data.bind(this), 300)
   }
   render() {
     let button = <button className=' p-2 bg-[#FCA311] rounded-xl mt-4' onClick={this.update_data.bind(this)}>Search</button>
@@ -94,6 +94,7 @@ export default class Layout2 extends React.Component {
     )
   }
   async update_data() {
+    if(!document.getElementById('loading')){return;}
     console.log('a')
     this.state.working = true;
     document.getElementById('loading').style.display = 'block'

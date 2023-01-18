@@ -28,11 +28,11 @@ const checkuser = () => {
                 }
                 time.current = res_json.time
                 setHeader("Logged in as "+res_json.user)
-                if(res_json.time>70000){
+                if(time.current<=540000){
                     setTimeout(()=>{setWorking(false);}, 10000)
                 }
                 else{
-                    setTimeout(()=>{setWorking(false);}, 1000)
+                    setTimeout(()=>{setWorking(false);}, 300)
                 }
 
             })
@@ -41,7 +41,7 @@ const checkuser = () => {
     if(time.current!==-1){
         if(time.current>=540000){
             return(
-            <div className='p-5 mt-10 bg-[#E5E5E5] rounded-xl border-[#FCA311] border-b-8 flex flex-col'>
+            <div className='p-5 mt-10 bg-[#E5E5E5] rounded-xl border-[#FCA311] border-b-8 flex flex-col' id='checkuser'>
             <h1 className="text-2xl font-bold mb-3">
               Session will expire in {Math.round((600000-time.current)/1000)} seconds!
             </h1>
@@ -53,7 +53,7 @@ const checkuser = () => {
                     body:JSON.stringify({
                         session:router.query.session
                     })
-                });
+                }).then(()=>{if(document.getElementById('checkuser')){document.getElementById('checkuser').style.display = 'none'}});
             }}>No, I'm still here</button>
               
           </div>)

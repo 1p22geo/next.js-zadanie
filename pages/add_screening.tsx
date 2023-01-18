@@ -4,6 +4,7 @@ import Admincheck from '../components/admincheck'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import Checkuser from '../components/checkuser.js'
+import Randomized from '../components/add_randomised_screening'
 import Cinema_choice from '../components/cinema_choice'
 var MD5 = require("crypto-js/md5")
 /*
@@ -43,7 +44,7 @@ const Page: NextPage = () => {
           <Checkuser />
 
 
-          <div className='p-5 mt-10 bg-[#E5E5E5] rounded-xl border-[#FCA311] border-b-8'>
+          <div className='p-5 mt-10 bg-[#E5E5E5] rounded-xl border-[#FCA311] border-b-8 m-1'>
             <h1 className="text-2xl font-bold mb-3">
               Add another screening time:
             </h1>
@@ -55,7 +56,7 @@ const Page: NextPage = () => {
               <p className='p-2'>Which movie hall: <input className='p-1 bg-slate-400 text-white ml-1 focus:bg-[#FCA311] w-12' type={'text'} id={'hall'} name={'hall'} /><br /></p>
 
             </form>
-            <button className='bg-[#FCA311] rounded-md p-1 active:bg-slate-300' onClick={async () => {
+            <button className='bg-[#FCA311] rounded-md p-1 active:bg-slate-300 m-2' onClick={async () => {
               let cinemaInput = document.getElementById('adresses') as HTMLInputElement;
               let cinema;
               if (cinemaInput) {
@@ -113,7 +114,8 @@ const Page: NextPage = () => {
 
 
             }}>Submit data</button>
-
+            <br></br>
+          <Randomized/>
 
           </div>
 

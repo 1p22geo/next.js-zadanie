@@ -1,8 +1,8 @@
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useRef } from 'react';
-import Chairs from '../components/chairs'
-import Add_screening from './add_screening_component'
+import Chairs from './chairs'
 function a(x){
     return ((x).toString().length===1)?"0"+(x).toString():(x).toString()
   }
@@ -70,19 +70,40 @@ const movie_description = () => {
         return(
             <>
             <div className='p-5 mt-10 bg-[#E5E5E5] rounded-xl border-[#FCA311] border-b-8 flex flex-col  w-1/2'>
-                <h1 className=' font-extrabold text-5xl mb-3'>
-                {router.query.movie.replace(/_/g, " ")}
+            <h1 className=' font-extrabold text-5xl pt-1'>
+                Please confirm this is the correct movie, time and seat
+                </h1>
+                <h1 className=' font-semibold text-3xl pt-1 m-4'>
+                "{router.query.movie.replace(/_/g, " ")}"
                 </h1>
                 <h1 className=' font-semibold text-3xl pt-1'>
                 {stringifyDate(parseInt(router.query.timestamp))}
                 </h1>
-                
-                
-                <img src={router.query.image} className='w-96 mx-auto m-8'/>
-                
-                
             </div> 
-            <Chairs chairs={result[0].chairs} hall={router.query.movie_hall}/>
+            <Chairs chairs={result[0].chairs} hall={router.query.movie_hall} row={router.query.row} col={router.query.col}/>
+            <div className='p-5 mt-10 bg-[#E5E5E5] rounded-xl border-[#FCA311] border-b-8 flex flex-col  w-1/2'>
+            <h1 className=' font-extrabold text-5xl pt-1'>
+                Do you still want to buy this seat?
+                </h1>
+                <div className='h-32 flex justify-center'>
+                    <div className='w-1/3 border-[10px] m-3 p-5 box-border border-emerald-500 text-center justify-center font-bold text-4xl cursor-pointer' onClick={
+                        async ()=>{
+                            fetch("http://localhost:3000/api/reserve_seat", {
+                                method: "POST",
+                                body:JSON.stringify({
+                                    timestamp:router.query.timestamp,
+                                    session:router.query.session,
+                                    cinema:router.query.cinema,
+                                    hall:router.query.movie_hall,
+                                    row:router.query.row,
+                                    col:router.query.col,
+                                })
+                            });
+                        }
+                    }>Yes</div>
+                    <Link href={router.asPath.replace(/reservation/, "screening").split('&row=')[0]} className='w-1/3 border-[10px] m-3 p-5 box-border border-red-500 text-center justify-center font-bold text-4xl'>No</Link>
+                </div>
+            </div> 
         </>
         )
     }

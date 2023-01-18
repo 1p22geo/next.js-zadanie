@@ -87,7 +87,9 @@ export default function component(props){
             </ul>
             <h4 className='font-bold text-l'>Screening:</h4>
             <div>
-              {record.screening.map((screening)=>{
+              {record.screening
+              .sort((a,b)=>{if(a.timestamp>b.timestamp) return 1;else if(a.timestamp<b.timestamp) return -1;else if(a.timestamp===b.timestamp) return 0;})
+              .map((screening)=>{
                 let date = new Date(screening.timestamp)
                 let minute = date.getMinutes()
                 let hour = date.getHours()
