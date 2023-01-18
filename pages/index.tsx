@@ -51,7 +51,7 @@ const Home: NextPage = () => {
     
         <Movies/>
          
-        <Chairs chairs={table2}/>
+        
       
       </main>
     </div>

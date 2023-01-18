@@ -62,7 +62,7 @@ const movie_description = () => {
                 <h1 className="text-2xl font-bold mb-3">
                 Something went wrong
                 </h1>
-                <p>It seems that there are multiple screening at the same time, in the same place. This should not happen.</p>
+                <p>It seems that there are multiple screenings at the same time, in the same place. This should not happen.</p>
             </div> 
         )
     }

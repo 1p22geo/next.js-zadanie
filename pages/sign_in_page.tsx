@@ -1,10 +1,10 @@
-import { randomBytes } from 'crypto'
+
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Link from 'next/link';
 import Login from '../components/login.js'
 //import Layout2 from './layout.js'
-var MD5 = require("crypto-js/md5")
+
 /*
 <form className='p-5 mt-10 bg-[#E5E5E5] rounded-xl'>
   Gt<input type={'radio'} id={'button1'} name={'buttons'} value={'1'}/><br/>
@@ -51,16 +51,34 @@ const Home: NextPage = () => {
             if(passwordInput){
               password = passwordInput.value
             }
-            let salt = randomBytes(32).toString('hex')
-            let md5 = MD5(password+salt).toString()
             
             let res = await fetch("http://localhost:3000/api/add_user", {
               method: "POST",
-              body:JSON.stringify({name:name, md5:md5, salt:salt})
+              body:JSON.stringify({name:name, password:password})
           })
           if(res.status === 409){
             //409 conflict - user already exists
             document.getElementById('label')!.innerHTML = "User already exists"
+          }
+          else if(res.status === 400){
+            let reason = (await res.json()).reason
+            switch(reason){
+              case 1:
+                document.getElementById('label')!.innerHTML = "The password needs to be at least 8 characters long."
+                break;
+              case 2:
+                document.getElementById('label')!.innerHTML = "You need at least one digit in your password."
+                break;
+              case 3:
+                document.getElementById('label')!.innerHTML = "You need at least one uppercase letter in your password."
+                break;
+              case 4:
+                document.getElementById('label')!.innerHTML = "You need at least one special character in your password."
+                break;
+              default:
+                document.getElementById('label')!.innerHTML = "I don't know what happened."
+                break;
+            }
           }
           else if(res.status === 201){
             (document.getElementById('Username') as HTMLInputElement)!.value = '';

@@ -71,7 +71,7 @@ const movie_description = () => {
             <>
             <div className='p-5 mt-10 bg-[#E5E5E5] rounded-xl border-[#FCA311] border-b-8 flex flex-col  w-1/2'>
             <h1 className=' font-extrabold text-5xl pt-1'>
-                Please confirm this is the correct movie, time and seat
+                {result[0].chairs[router.query.row][router.query.col].price} zł
                 </h1>
                 <h1 className=' font-semibold text-3xl pt-1 m-4'>
                 "{router.query.movie.replace(/_/g, " ")}"
@@ -86,7 +86,7 @@ const movie_description = () => {
                 Do you still want to buy this seat?
                 </h1>
                 <div className='h-32 flex justify-center'>
-                    <div className='w-1/3 border-[10px] m-3 p-5 box-border border-emerald-500 text-center justify-center font-bold text-4xl cursor-pointer' onClick={
+                    <Link href={router.asPath.replace(/reservation/, "credits")} className='w-1/3 border-[10px] m-3 p-5 box-border border-emerald-500 text-center justify-center font-bold text-4xl cursor-pointer' onClick={
                         async ()=>{
                             fetch("http://localhost:3000/api/reserve_seat", {
                                 method: "POST",
@@ -100,7 +100,7 @@ const movie_description = () => {
                                 })
                             });
                         }
-                    }>Yes</div>
+                    }>Yes</Link>
                     <Link href={router.asPath.replace(/reservation/, "screening").split('&row=')[0]} className='w-1/3 border-[10px] m-3 p-5 box-border border-red-500 text-center justify-center font-bold text-4xl'>No</Link>
                 </div>
             </div> 

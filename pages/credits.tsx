@@ -21,7 +21,6 @@ const Page: NextPage = () => {
           <h1 className="text-6xl self-center" id='header'>Logged in</h1>
           <Admin_back/>
           <Link href="/" className='text-sky-200 p-2 self-center'>Log out</Link>
-          <Link href={router.asPath.replace(/screening/, "movie").split('&timestamp=')[0]} className='text-sky-200 p-2 self-center'>Select another day</Link>
           <Link href={"/logged_in?session="+router.query.session} className='text-sky-200 p-2 self-center'>Back to movies</Link>
 
           
@@ -37,8 +36,20 @@ const Page: NextPage = () => {
       <main className="flex w-full flex-1 flex-col items-center justify-center text-center">
       <Checkuser/>
       
-      <Movie/>
-      
+      <div className='p-5 mt-10 bg-[#E5E5E5] rounded-xl border-[#FCA311] border-b-8'>
+      <h1 className='h-5 font-bold text-gray-700'>Thank you for using our website.</h1>
+      <h1 className='h-4'>Did you literally think we will do payments for this app?</h1>
+
+      <Link href={router.asPath.replace(/credits/, "logged_in").split('&movie=')[0]} className='text-sky-500'>
+          Continue browsing movies
+        </Link>
+      <Link href={router.asPath.replace(/credits/, "screening").split('&row=')[0]} className='text-sky-500'>
+        Purchase more seats for this screening
+      </Link>
+      <Link href={'http://localhost:3000/'} className='text-sky-500'>
+        Or log out
+      </Link>
+      </div>
         
       </main>
     </div>
