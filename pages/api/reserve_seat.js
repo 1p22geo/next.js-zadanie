@@ -1,6 +1,37 @@
 const { MongoClient } = require('mongodb');
+var nodemailer = require('nodemailer');
+function a(x){
+  return ((x).toString().length===1)?"0"+(x).toString():(x).toString()
+}
+function stringifyDate(date){
+  let string = ""
+  string += a(date.getDate())
+  string += "."
+  string += a(date.getMonth()+1)
+  string += "."
+  string += date.getFullYear()
+  string += " "
+  string += a(date.getHours())
+  string += ":"
+  string += a(date.getMinutes())
+  return string;
+}
+
 export default async function handler(req, res) {
   
+  let testAccount = await nodemailer.createTestAccount();
+
+  // create reusable transporter object using the default SMTP transport
+  let transporter = nodemailer.createTransport({
+    host: "smtp.ethereal.email",
+    port: 587,
+    secure: false, // true for 465, false for other ports
+    auth: {
+      user: testAccount.user, // generated ethereal user
+      pass: testAccount.pass, // generated ethereal password
+    },
+  });
+
   const body = JSON.parse(req.body)
   const url = 'mongodb://127.0.0.1:27017';
   const client = new MongoClient(url);
@@ -26,9 +57,29 @@ export default async function handler(req, res) {
   }
   
   if(authorised){
+    let screening = (await collection.findOne({cinema:body.cinema, movie_hall:body.hall, timestamp:parseInt(body.timestamp)}))
+    let seat = screening.chairs[body.row][body.col]
+    let user = (await client.db('cinema').collection('users').find({name:session[0].user}).toArray())[0]
+    let movie = (await client.db('cinema').collection('movies').findOne({title:screening.movie}))
+    let info = await transporter.sendMail({
+      from: '"Cinema" <nonexistent.cinema@gmail.com>', // sender address
+      to: user.email, // list of receivers
+      subject: 'Seat purchase confirmed', // Subject line
+      html: `<h1>Your seat purchase was succesful!</h1>
+      <h2>You should pay me ${seat.price} zł for this seat</h2>
+      <p>But the same way there is no cinema, there is no way I can charge you for this.</p>
+      <hr/>
+      <h2>You bought tickets for</h2>
+      <h1>${screening.movie}</h1>
+      <h1>${stringifyDate(new Date(screening.timestamp))}</h1>
+      <h1>Row ${body.row}, seat ${body.col}</h1>
+      <img src="http://localhost:3000/${movie.image}"/>`
+    });
+
+ 
     console.log(await collection.updateOne({cinema:body.cinema, movie_hall:body.hall, timestamp:parseInt(body.timestamp)}, {$set:{[`chairs.${body.row}.${body.col}.user`] : session[0].user}}))
     await client.close()
-    res.status(201).json({})
+    res.status(201).json({link:nodemailer.getTestMessageUrl(info)})
   }
   else{
     await client.close()

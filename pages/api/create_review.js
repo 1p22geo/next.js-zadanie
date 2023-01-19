@@ -26,7 +26,7 @@ export default async function handler(req, res) {
     }
   }
   if(authorised){
-  let user = await client.db('cinema').collection('users').find({name:session[0].user}).toArray()[0]
+  let user = (await client.db('cinema').collection('users').find({name:session[0].user}).toArray())[0]
 
     await collection.updateOne(
       {title:body.title},

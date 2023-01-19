@@ -86,9 +86,9 @@ const movie_description = () => {
                 Do you still want to buy this seat?
                 </h1>
                 <div className='h-32 flex justify-center'>
-                    <Link href={router.asPath.replace(/reservation/, "credits")} className='w-1/3 border-[10px] m-3 p-5 box-border border-emerald-500 text-center justify-center font-bold text-4xl cursor-pointer' onClick={
+                    <div href={router.asPath.replace(/reservation/, "credits")} className='w-1/3 border-[10px] m-3 p-5 box-border border-emerald-500 text-center justify-center font-bold text-4xl cursor-pointer' onClick={
                         async ()=>{
-                            fetch("http://localhost:3000/api/reserve_seat", {
+                            let res = await fetch("http://localhost:3000/api/reserve_seat", {
                                 method: "POST",
                                 body:JSON.stringify({
                                     timestamp:router.query.timestamp,
@@ -99,8 +99,14 @@ const movie_description = () => {
                                     col:router.query.col,
                                 })
                             });
+                        
+                        if(res.status == 201){
+                            let res_json = await res.json()
+                            router.push(router.asPath.replace(/reservation/, "credits")+'&mail='+res_json.link)
                         }
-                    }>Yes</Link>
+                    
+                    }
+                    }>Yes</div>
                     <Link href={router.asPath.replace(/reservation/, "screening").split('&row=')[0]} className='w-1/3 border-[10px] m-3 p-5 box-border border-red-500 text-center justify-center font-bold text-4xl'>No</Link>
                 </div>
             </div> 

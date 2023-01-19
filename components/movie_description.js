@@ -96,6 +96,7 @@ const movie_description = () => {
             <div className='p-5 mt-10 bg-[#E5E5E5] rounded-xl border-[#FCA311] border-b-8 w-4/5'>
             <h1 className=' font-extrabold text-5xl pb-3'>
                 Screening at:
+                
             </h1>
             <div className='flex overflow-scroll'>
             <Add_screening/>

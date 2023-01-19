@@ -26,7 +26,7 @@ const Home: NextPage = () => {
   return (
     <div className='bg-black'>
     <div className="flex font-bold bg-[#14213D] p-5 w-full text-[#E5E5E5] pb-12 justify-between border-[#FCA311] border-b-8">
-          <h1 className="text-6xl"  id='header'>Database connection</h1>
+          <h1 className="text-6xl"  id='header'>Cinema</h1>
           <Link href="/login_page" className='text-sky-200 p-2 self-center '>Log in</Link>
           
     </div>
