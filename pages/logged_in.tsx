@@ -25,7 +25,7 @@ const Page: NextPage = () => {
           
           <Admin_back />
           <Link href="/" className='text-sky-200 p-2 mx-6 self-center'>Log out</Link>
-          <div className='flex flex-col'><img className=' h-14 w-14 self-center w-14 self-center' id='image' src='none'></img><h1 className="text-2xl self-center" id='header'>Logged in</h1></div>
+          <div className='flex flex-col'><img className=' h-14 w-14 self-center' id='image' src='none'></img><h1 className="text-2xl self-center" id='header'>Logged in</h1></div>
           
       </div>
 
