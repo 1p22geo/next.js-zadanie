@@ -42,7 +42,7 @@ const Page: NextPage = () => {
       <h1 className='h-5 text-xl font-bold text-gray-700'>Thank you for using our website.</h1>
       <h1 className='h-4 my-4'>Did you literally think we will do payments for this app?</h1>
 
-      {router.query.credits?<><Link href={router.query.mail as string} target='_blank' className='font-bold text-xl text-sky-600'>See the recieved mail</Link><br/></>:<></>}
+      {router.query.mail?<><Link href={router.query.mail as string} target='_blank' className='font-bold text-xl text-sky-600'>See the recieved mail</Link><br/></>:<></>}
 
       <Link href={router.asPath.replace(/credits/, "logged_in").split('&movie=')[0]} className='text-sky-500'>
           Continue browsing movies
