@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useRef } from 'react';
 import Chairs from './chairs'
+import Preloader from './preload'
 function a(x){
     return ((x).toString().length===1)?"0"+(x).toString():(x).toString()
   }
@@ -68,7 +69,9 @@ const movie_description = () => {
     }
     if(result.length===1){
         return(
+            
             <>
+            <Preloader/>
             <div className='p-5 mt-10 bg-[#E5E5E5] rounded-xl border-[#FCA311] border-b-8 flex flex-col  w-1/2'>
             <h1 className=' font-extrabold text-5xl pt-1'>
                 {result[0].chairs[router.query.row][router.query.col].price} zł
@@ -88,6 +91,7 @@ const movie_description = () => {
                 <div className='h-32 flex justify-center'>
                     <div href={router.asPath.replace(/reservation/, "credits")} className='w-1/3 border-[10px] m-3 p-5 box-border border-emerald-500 text-center justify-center font-bold text-4xl cursor-pointer' onClick={
                         async ()=>{
+                            document.getElementById('loading').style.display = "block"
                             let res = await fetch("http://localhost:3000/api/reserve_seat", {
                                 method: "POST",
                                 body:JSON.stringify({
@@ -99,7 +103,7 @@ const movie_description = () => {
                                     col:router.query.col,
                                 })
                             });
-                        
+                            document.getElementById('loading').style.display = "none"
                         if(res.status == 201){
                             let res_json = await res.json()
                             router.push(router.asPath.replace(/reservation/, "credits")+'&mail='+res_json.link)

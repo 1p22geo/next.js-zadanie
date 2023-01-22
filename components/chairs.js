@@ -45,15 +45,10 @@ function chairs(props) {
                     <div className='dropdown-content translate-x-[1.25rem] -translate-y-[1.25rem]'>Normal seat<br /><p className=' text-sm text-gray-800 font-thin'>Cost: {chair.price} zł</p><p className=' text-sm text-gray-400 font-thin'>taken by {chair.user}</p></div>
                   </div>
                   case "premium":
-                    return <div className=" dropdown m-1 w-10 h-10" key={index+' seat '+col}>
-                      <div href={linkhref} className='w-10 h-10 flex-col cursor-not-allowed relative'>
-
-                        <div className='h-5 bg-red-400 rounded-t-full' />
-                        <div className='h-5 bg-amber-400 rounded-b-full' />
-
-                      </div>
-                      <div className='animate-none dropdown-content translate-x-[1.25rem] -translate-y-[1.25rem]'>Premium seat<br /><p className=' text-sm text-gray-800 font-thin'>Cost: {chair.price} zł</p><p className=' text-sm text-gray-400 font-thin'>Taken by {chair.user}</p></div>
-                    </div>
+                    return <div className="dropdown m-1" key={index+' seat '+col}>
+                    <div href={linkhref} className=' w-0 p-5 bg-red-400 rounded-full cursor-not-allowed '/>
+                    <div className='dropdown-content translate-x-[1.25rem] -translate-y-[1.25rem]'>Premium seat<br /><p className=' text-sm text-gray-800 font-thin'>Cost: {chair.price} zł</p><p className=' text-sm text-gray-400 font-thin'>taken by {chair.user}</p></div>
+                  </div>
                   default:
                     return <></>
                 }

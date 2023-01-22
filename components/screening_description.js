@@ -2,6 +2,8 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useRef } from 'react';
 import Chairs from '../components/chairs'
+import Preloader from './preload'
+
 import Add_screening from './add_screening_component'
 function a(x){
     return ((x).toString().length===1)?"0"+(x).toString():(x).toString()
@@ -69,6 +71,7 @@ const movie_description = () => {
     if(result.length===1){
         return(
             <>
+            <Preloader/>
             <div className='p-5 mt-10 bg-[#E5E5E5] rounded-xl border-[#FCA311] border-b-8 flex flex-col  w-1/2'>
                 <h1 className=' font-extrabold text-5xl mb-3'>
                 {router.query.movie.replace(/_/g, " ")}

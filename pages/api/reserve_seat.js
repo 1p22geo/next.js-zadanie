@@ -31,8 +31,9 @@ export default async function handler(req, res) {
       pass: testAccount.pass, // generated ethereal password
     },
   });
-
-  const body = JSON.parse(req.body)
+  let body;
+  try{body = JSON.parse(req.body)}
+  catch(e){body = {};res.status(204).json();return;}
   const url = 'mongodb://127.0.0.1:27017';
   const client = new MongoClient(url);
   const dbName = 'cinema';
@@ -57,10 +58,12 @@ export default async function handler(req, res) {
   }
   
   if(authorised){
-    let screening = (await collection.findOne({cinema:body.cinema, movie_hall:body.hall, timestamp:parseInt(body.timestamp)}))
-    let seat = screening.chairs[body.row][body.col]
-    let user = (await client.db('cinema').collection('users').find({name:session[0].user}).toArray())[0]
-    let movie = (await client.db('cinema').collection('movies').findOne({title:screening.movie}))
+    const screening = (await collection.findOne({cinema:body.cinema, movie_hall:body.hall, timestamp:parseInt(body.timestamp)}))
+    const seat = screening.chairs[body.row][body.col]
+    const user = (await client.db('cinema').collection('users').find({name:session[0].user}).toArray())[0]
+    const movie = (await client.db('cinema').collection('movies').findOne({title:screening.movie}))
+    console.log(await collection.updateOne({cinema:body.cinema, movie_hall:body.hall, timestamp:parseInt(body.timestamp)}, {$set:{[`chairs.${body.row}.${body.col}.user`] : session[0].user}}))
+    await client.close()
     let info = await transporter.sendMail({
       from: '"Cinema" <nonexistent.cinema@gmail.com>', // sender address
       to: user.email, // list of receivers
@@ -75,10 +78,8 @@ export default async function handler(req, res) {
       <h1>Row ${body.row}, seat ${body.col}</h1>
       <img src="http://localhost:3000/${movie.image}"/>`
     });
-
- 
-    console.log(await collection.updateOne({cinema:body.cinema, movie_hall:body.hall, timestamp:parseInt(body.timestamp)}, {$set:{[`chairs.${body.row}.${body.col}.user`] : session[0].user}}))
-    await client.close()
+    //console.log(info, testAccount)
+    
     res.status(201).json({link:nodemailer.getTestMessageUrl(info)})
   }
   else{

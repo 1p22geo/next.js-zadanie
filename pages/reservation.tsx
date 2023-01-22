@@ -22,13 +22,13 @@ const Page: NextPage = () => {
           <Admin_back />
           <Link href="/" className='text-sky-200 p-2 mx-6 self-center'>Log out</Link>
           <Link href={"/logged_in?session="+router.query.session} className='text-sky-200 p-2 self-center'>Back to movies</Link>
-          <Link href={router.asPath.replace(/screening/, "movie").split('&timestamp=')[0]} className='text-sky-200 p-2 self-center'>Select another day</Link>
+          <Link href={router.asPath.replace(/reservation/, "movie").split('&timestamp=')[0]} className='text-sky-200 p-2 self-center'>Select another day</Link>
 
           <div className='flex flex-col'><img className=' h-14 w-14 self-center' id='image' src='none'></img><h1 className="text-2xl self-center" id='header'>Logged in</h1></div>
           
       </div>
     
-    <div className="flex min-h-screen items-center justify-center bg-[#000000]">
+    <div className="flex min-h-screen items-center justify-center bg-[#000000]" id='bg'>
     
       <Head>
         <title>Database connection</title>
@@ -40,7 +40,18 @@ const Page: NextPage = () => {
       
       <Movie/>
       
-        
+      <div className='w-1/3 mt-10 p-5 bg-[#E5E5E5] rounded-xl hidden border-[#FCA311] border-b-8' id='loading'>
+          <h1 className="text-2xl font-bold mb-3">
+              Please wait...
+            </h1>
+              <div className='w-48 h-48 bg-emerald-400 mx-auto rounded-full pt-8 animate-spin'>
+              
+                <div className=' w-32 h-32 bg-[#E5E5E5] mx-auto rounded-full'>
+                  
+                </div>
+                <div className='h-8 w-4 bg-emerald-100 translate-x-24'></div>
+              </div>
+          </div>  
       </main>
     </div>
     <div className='h-[20rem]'/>
