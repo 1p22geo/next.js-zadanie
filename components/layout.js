@@ -1,198 +1,264 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8" />
-    <title>Hello World</title>
-    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+import * as React from 'react'
+import component from '../components/component'
+import Router from 'next/router';
 
-    <!-- Don't use this in production: -->
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="style.css"/>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="text/babel">
-
-        let UserComponent = function(){return <></>}
-
-        function executeCode(){
-            let textInput = document.getElementById('code')
-            let inputValue = textInput.value
-            try{
-                let App = false;
-                eval(inputValue)
-                console.log(App)
-
-                if(typeof App == 'function'){
-                    UserComponent = App
-                }
-                
-            }
-            catch(e){
-                
-                alert(e)
-            }
-        }
-
-        function Header(props){
-            return <h1 className='text-sky-500 text-2xl my-3'>{props.text}</h1>
-        }
-
-function Toggle(props){
-  if(props.toggled){
-    return <div className='rounded-full bg-black text-right w-24'>
-        <div className='rounded-full bg-white p-5 inline h-auto'></div>
-      </div>
-  }
-  else{
-    return <div></div>
-  }
-}
-        
-function Chairs(props) {
-  
-  let table2 = props.chairs
-  
-  return (<div className='p-5 mt-10 bg-[#E5E5E5] rounded-xl border-[#FCA311] border-b-8 '>
-    {table2.map((row, index) => {
-      return (
-        <div className='flex mx-auto justify-center' key={'row '+index}>
-          {row.map(
-            (chair, col) => {
-              if((props.row)&&(props.col)){
-                if((props.row==index)&&(props.col==col)){
-            return <div className="dropdown m-1" key={index+' seat '+col}>
-              <div className=' w-0 p-6 -mt-1 bg-emerald-400 rounded-full animate-pulse block shadow-xl'/>
-              <div className='dropdown-content translate-x-[1.25rem] -translate-y-[1.25rem]'>Is this the seat you want to buy?<br /></div>
-            </div>}}
-              
-              if (chair.user === null) {
-                switch (chair.type) {
-                  case "normal":
-                    return <div className="dropdown m-1" key={index+' seat '+col}>
-                    <div  className=' w-0 p-5 bg-sky-400 rounded-full hover:animate-pulse block'/>
-                    <div className='dropdown-content translate-x-[1.25rem] -translate-y-[1.25rem]'>Normal seat<br /><p className=' text-sm text-gray-800 font-thin'>Cost: {chair.price} zł</p><p className=' text-sm text-gray-400 font-thin'>empty</p></div>
-                  </div>
-                  case "premium":
-                    return <div className="dropdown m-1" key={index+' seat '+col}>
-                      <div  className=' w-0 p-5 bg-amber-400 rounded-full hover:animate-pulse block'/>
-                      <div className='dropdown-content translate-x-[1.25rem] -translate-y-[1.25rem]'>Premium seat<br /><p className=' text-sm text-gray-800 font-thin'>Cost: {chair.price} zł</p><p className=' text-sm text-gray-400 font-thin'>empty</p></div>
-                    </div>
-                  default:
-                    return <></>
-                }
-              }
-              else {
-                switch (chair.type) {
-                  case "normal":
-                    return <div className="dropdown m-1" key={index+' seat '+col}>
-                    <div  className=' w-0 p-5 bg-red-400 rounded-full cursor-not-allowed '/>
-                    <div className='dropdown-content translate-x-[1.25rem] -translate-y-[1.25rem]'>Normal seat<br /><p className=' text-sm text-gray-800 font-thin'>Cost: {chair.price} zł</p><p className=' text-sm text-gray-400 font-thin'>taken by {chair.user}</p></div>
-                  </div>
-                  case "premium":
-                    return <div className="dropdown m-1" key={index+' seat '+col}>
-                    <div  className=' w-0 p-5 bg-red-400 rounded-full cursor-not-allowed '/>
-                    <div className='dropdown-content translate-x-[1.25rem] -translate-y-[1.25rem]'>Premium seat<br /><p className=' text-sm text-gray-800 font-thin'>Cost: {chair.price} zł</p><p className=' text-sm text-gray-400 font-thin'>taken by {chair.user}</p></div>
-                  </div>
-                  default:
-                    return <></>
-                }
-              }
-
-            }
-          )}
-        </div>
-      )
-    })
-    }
-  </div>);
-}
-
-const table = [
-[{type:'normal', user:null, price:30},{type:'normal', user:null, price:30},{type:'normal', user:null, price:30},{type:'normal', user:null, price:30},{type:'normal', user:'abc', price:30},{type:'normal', user:null, price:30},],
-[{type:'premium', user:null, price:70},{type:'premium', user:null, price:70},{type:'premium', user:null, price:70},{type:'premium', user:null, price:70},{type:'premium', user:null, price:70},{type:'premium', user:null, price:70},{type:'premium', user:null, price:70},],
-[{type:'normal', user:null, price:30},{type:'normal', user:null, price:30},{type:'normal', user:'abc', price:30},{type:'normal', user:null, price:30},{type:'normal', user:null, price:30},{type:'normal', user:null, price:30},{type:'normal', user:null, price:30},{type:'normal', user:null, price:30},],
-[{type:'normal', user:null, price:30},{type:'normal', user:null, price:30},{type:'normal', user:null, price:30},{type:'normal', user:null, price:30},{type:'normal', user:null, price:30},{type:'normal', user:null, price:30},{type:'normal', user:null, price:30},{type:'normal', user:'abc', price:30},{type:'normal', user:null, price:30},],
-[{type:'premium', user:null, price:70},{type:'premium', user:null, price:70},{type:'premium', user:null, price:70},{type:'premium', user:null, price:70},{type:'premium', user:null, price:70},{type:'premium', user:null, price:70},{type:'premium', user:'abc', price:70},{type:'premium', user:null, price:70},],
-[{type:'normal', user:null, price:30},{type:'normal', user:null, price:30},{type:'normal', user:null, price:30},{type:'normal', user:'def', price:30},{type:'normal', user:'def', price:30},{type:'normal', user:'def', price:30},{type:'normal', user:null, price:30},{type:'normal', user:null, price:30},{type:'normal', user:null, price:30},],
-[{type:'premium', user:null, price:70},{type:'premium', user:null, price:70},{type:'premium', user:null, price:70},{type:'premium', user:null, price:70},{type:'premium', user:'abc', price:70},{type:'premium', user:null, price:70},{type:'premium', user:null, price:70},{type:'premium', user:null, price:70},],
-[{type:'normal', user:null, price:30},{type:'normal', user:null, price:30},{type:'normal', user:null, price:30},{type:'normal', user:null, price:30},{type:'normal', user:null, price:30},{type:'normal', user:null, price:30},{type:'normal', user:null, price:30},{type:'normal', user:null, price:30},{type:'normal', user:null, price:30},],
-]
+import Link from 'next/link';
+import Checkuser from '../components/checkuser.js';
+import Admin_back from "../components/admin_back";
+import Cinema_choice from "../components/cinema_choice";
+import Day_select from '../components/day_select';
+export default class Layout2 extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { records: [], working: false }
     
-      function MyApp() {
-        let [state, setState] = React.useState(true)
-        let [tab, setTab] = React.useState('code')
-        let [loading, setLoading] = React.useState(true)
-        const tabs = ['code', 'chairs', 'loading']
-        return (
-            <div className='text-center mx-auto m-2'>
-                <Header text='App header'/>
-                <div className='inline-flex overflow-hidden mx-auto rounded-full'>
-                    {tabs.map((tab)=>{return <div className='bg-sky-400 hover:bg-sky-300 py-3 px-5 cursor-pointer my-2' onClick={()=>{setTab(tab)}}>{tab}</div>})}
-                </div>
-                <div className={`mx-auto w-3/4 ${tab=='code'?'flex':'hidden'}`}>
-                    <div className=' w-1/2 bg-sky-500 p-2'>
-                        <div className='bg-white p-2'>
-                            <Header text='Write code here'/>
-                            <textarea id='code' rows='20' cols='50' className=' p-2 caret-sky-500 border-sky-500 rounded-xl border-2'>
-                                
-                            </textarea>
-                            <Header text='Execute code'/>
-                            <button onClick={executeCode} className='bg-sky-500 p-2 rounded-xl'>
-                                Execute
-                            </button>
-                        </div>
-                    </div>
-                    <div className=' w-1/2 bg-sky-500 p-2'>
-                        <div id='app_preview' className='bg-white h-full w-full text-left'>
-                            <UserComponent/>
-                            </div>
-                    </div>
-                </div>
-                <div className={`mx-auto w-3/4  ${tab=='chairs'?'flex':'hidden'}`}>
-                    <div className=' w-full bg-sky-500 p-2'>
-                        <div className='bg-white p-2'>
-                            <Header text='Cinema chairs'/>
-                            <Chairs chairs={table}/>
-                        </div>
-                    </div>
-                </div>
-                <div className={`mx-auto w-3/4  ${tab=='loading'?'flex':'hidden'}`}>
-                    <div className=' w-full bg-sky-500 p-2'>
-                        <div className='bg-white p-2'>
-                            <Header text='Loading screen'/>
-                            <Toggle toggled={true}/>
-                            <div className={`w-1/3 mx-auto mt-10 p-5 bg-[#E5E5E5] rounded-xl ${loading?'block':'hidden'} border-[#FCA311] border-b-8`} id='loading'>
-                            <h1 className="text-2xl font-bold mb-3">
-                                Loading...
-                              </h1>
-                                <div className='w-48 h-48 bg-emerald-400 mx-auto rounded-full pt-8 animate-spin'>
-                                
-                                  <div className=' w-32 h-32 bg-[#E5E5E5] mx-auto rounded-full'>
-                                    
-                                  </div>
-                                  <div className='h-8 w-4 bg-emerald-100 translate-x-24'></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+  }
+  componentDidMount(){
+    setTimeout(this.update_data.bind(this), 300)
+  }
+  render() {
+    let button = <button className=' p-2 bg-[#FCA311] rounded-xl mt-4' onClick={this.update_data.bind(this)}>Search</button>
+    //if ((!this.state.working) && (typeof window != 'undefined')) this.a()
+
+    return (
+      <>
+      <form className='p-5 mt-10 bg-[#E5E5E5] rounded-xl border-[#FCA311] border-b-8' onSubmit={(e)=>{e.preventDefault()}}>
+            <h1 className="text-2xl font-bold mb-3">
+              Search for movies
+            </h1>
+            <datalist id='datalist'>
+              <option value='documentary'/>
+              <option value='comedy'/>
+              <option value='sport'/>
+              <option value='music'/>
+              <option value='impression'/>
+              <option value='science fiction'/>
+              <option value='disaster movie'/>
+              <option value='stand-up'/>
+              <option value='satire'/>
+            </datalist>
+            <p className='p-2'>Title<input className='p-1 bg-slate-400 text-white ml-1 focus:bg-[#FCA311]' type={'text'} id={'searchbar'} name={'searchbar'} /><br /></p>
+            <p className='p-2'>Genre<input className='p-1 bg-slate-400 text-white ml-1 focus:bg-[#FCA311]' list={'datalist'} type={'text'} id={'genres'} name={'genre'} />
+            <br /></p>
+            
+            <h1 className="text-2xl font-bold mb-3">
+              Where can you go
+            </h1>
+
+            <p className='p-2'>City: <input className='p-1 bg-slate-400 text-white ml-1 focus:bg-[#FCA311]' type={'text'} id={'city'} name={'city'} /><br /></p>
+            <p className='p-2'>Adress: <Cinema_choice /><br /></p>
+            <p className='p-2'>Or show all movies: <input type={'checkbox'} id='all' /><br /></p>
+            <h1 className="text-2xl font-bold mb-3">
+              When do you have time
+            </h1>
+            <div className='flex justify-evenly text-center'>
+              <div>
+                <h1 className="text-md font-bold mb-3 dropdown">
+                  Select hours
+                  <span className='dropdown-content'>
+                    You can see movies from different days, but only the ones within those hours.
+                  </span>
+                </h1>
+                <p className='p-2'>Start: <input className='p-1 bg-slate-400 text-white ml-1 focus:bg-[#FCA311]' type={'time'} id={'start'} name={'start'} /><br /></p>
+                <p className='p-2'>End: <input className='p-1 bg-slate-400 text-white ml-1 focus:bg-[#FCA311]' type={'time'} id={'end'} name={'end'} /><br /></p>
+              </div>
+              <div>
+                <h1 className="text-md font-bold mb-3 dropdown">
+                  Select days
+                  <span className='dropdown-content'>
+                    You can see movies from the selected hours, within all the given days
+                  </span>
+                </h1><br />
+                
+                <Day_select />
+                Only select one day <input type={'checkbox'} id='multiple' />
+              </div>
             </div>
-        );
+            <button className=' p-2 bg-[#FCA311] rounded-xl mt-4' onClick={this.update_data.bind(this)}>Search</button>
+          </form>
+          <div className='w-1/3 mt-10 p-5 bg-[#E5E5E5] rounded-xl hidden border-[#FCA311] border-b-8' id='loading'>
+          <h1 className="text-2xl font-bold mb-3">
+              Loading...
+            </h1>
+              <div className='w-48 h-48 bg-emerald-400 mx-auto rounded-full pt-8 animate-spin'>
+              
+                <div className=' w-32 h-32 bg-[#E5E5E5] mx-auto rounded-full'>
+                  
+                </div>
+                <div className='h-8 w-4 bg-emerald-100 translate-x-24'></div>
+              </div>
+          </div>
+          
+        {React.createElement(component, { records: this.state.records })}
+      </>
+    )
+  }
+  async update_data() {
+    if(!document.getElementById('loading')){return;}
+    console.log('a')
+    this.state.working = true;
+    document.getElementById('loading').style.display = 'block'
+    /*
+    //If I decide to use radio buttons again
+    let radios = document.getElementsByName('buttons');
+    let checked = 2
+    for (let i = 0; i < radios.length; i++) {
+      const radiobutton = radios[i];
+      if(radiobutton.checked){
+        checked = i
       }
-      let x = 0;
-      let code = 'x = 1;'
-      const F = new Function(code)
-      F();
+    }
+    let query = {$gte:0}
+    if(checked === 0){
+      query = {$gte:30}
+    }
+    if(checked === 1){
+      query = {$lte:30}
+    }*/
+    /*
+    /searching by price
+    let query = {$gte:0}
+    try{
+    let minInput = document.getElementById('min');
+    
+    let min;
+    if(minInput){
+      if(minInput.value != ''){
+        min = +minInput.value
+      }
+      else{
+        min = 0
+      }
+    }
+    let maxInput = document.getElementById('max');
+    let max;
+    if(maxInput){
+      if(maxInput.value != ''){
+        max = +maxInput.value
+      }
+      else{
+        max = false;
+      }
+    }
+    if(max === false){
+      query = {
+        $gte:min
+      }
+    }
+    else{
+      query = {
+        $gte:min,
+        $lte:max
+      }
+    }}
+    catch(e){}
+    */
+    let searchinput = document.getElementById('searchbar');
+    let searchstring;
+    let query = {}
+    if (searchinput) {
+      if (searchinput.value != '') {
+        searchstring = searchinput.value
+        query = { title: { $regex: '(?i)' + searchstring } }
+      }
+      else {
+        searchstring = false;
+        query = {}
+      }
+    }
+    let newQuery = query
+    console.log('b')
+    if (document.getElementById('adresses')) {
+      if (!((typeof document.getElementById('adresses').value == 'undefined') || (document.getElementById('adresses').value == ''))) {
 
-      //alert(x)
+        let start, end = [0]
+        if (document.getElementById('start')) {
+          let Input = document.getElementById('start')
+          let start_string = Input.value
+          start = start_string.split(':').map((x) => Number(x))
 
-      const container = document.getElementById('root');
-      const root = ReactDOM.createRoot(container);
-      root.render(<MyApp />);
+        }
+        if (start.length === 1) start = [0, 0]
+        start = start[0] * 60 + start[1]
+        if (document.getElementById('end')) {
+          let Input = document.getElementById('end')
+          let start_string = Input.value
+          end = start_string.split(':').map((x) => Number(x))
 
-    </script>
-  </body>
-</html>
+        }
+        if (end.length === 1) end = [23, 59]
+
+        end = end[0] * 60 + end[1]
+
+        let startQuery = {}
+        if (document.getElementById('start-d') && (document.getElementById('start-d').value != '')) {
+          let inputDate = document.getElementById('start-d').value//.split('-')
+          let date = new Date(inputDate)
+          startQuery = { timestamp: { $gte: date.getTime() } }
+          console.log(startQuery)
+        }
+        let endQuery = {}
+        if (document.getElementById('end-d') && (document.getElementById('end-d').value != '')) {
+          let inputDate = document.getElementById('end-d').value//.split('-')
+          let date = new Date(inputDate)
+          endQuery = { timestamp: { $lte: date.getTime() } }
+        }
+        let dateQuery;
+        if ((document.getElementById('date') && (document.getElementById('date').value != ''))) {
+          let inputDate = document.getElementById('date').value//.split('-')
+          let date = new Date(inputDate)
+          dateQuery = { timestamp: { $gte: date.getTime(), $lte: date.getTime() + 86400000 } }//86400000 miliseconds is one day
+          //console.log(dateQuery)
+        }
+        else {
+          dateQuery = { $and: [startQuery, endQuery] }
+        }
+        //console.log(dateQuery)
+        let cinemaquery = {}; if (document.getElementById('adresses').value) cinemaquery = { cinema: document.getElementById('adresses').value }
+        let genre_query = {}; if (document.getElementById('genres').value) genre_query = { genre: document.getElementById('genres').value }
+
+        newQuery = { $and: [{ screening: { $elemMatch: { $and: [cinemaquery, { time: { $gte: start, $lte: end } }, dateQuery] } } }, query, genre_query] }
+      }
+    }
+    console.log('c')
+    if ((document.getElementById('all')) && (document.getElementById('all').checked)) { newQuery = {} }
+    //console.log('sending!')
+    console.log('d')
+    const response = await fetch("api/db_read", {
+      method: "POST",
+      body: JSON.stringify({ query: newQuery, session: (new URLSearchParams(window.location.search)).get('session') })
+    });
+    console.log('e')
+    if (response.status == 401) {
+      this.setState({
+        records: [],
+        working: false
+      });
+      Router.push('/');
+      return;
+    }
+    console.log('f')
+    let json_response = await response.json();
+    let arr = [];
+    for (let n = 0; n < json_response.result.length; n++) {
+      const record = json_response.result[n];
+      arr.push({
+        title: record.title,
+        text: record.description,
+        image: record.image,
+        genres: record.genre,
+        starring: record.starring,
+        screening: record.screening
+      });
+    }
+    
+    //console.log(arr)
+    
+      this.setState({
+        records: arr,
+        working: false
+      });
+      document.getElementById('loading').style.display = 'none'
+
+  }
+}
