@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
-const axios = require('axios').default
 
 const add_screening_component = () => {
     const router = useRouter()
