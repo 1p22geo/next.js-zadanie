@@ -1,0 +1,36 @@
+{
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "crypto-js": "^4.1.1",
+    "fs": "^0.0.1-security",
+    "mongodb": "^5.1.0",
+    "net": "^1.0.2",
+    "next": "latest",
+    "nodemailer": "^6.9.1",
+    "npm": "^9.6.3",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "tls": "^0.0.1"
+  },
+  "devDependencies": {
+    "@types/crypto-js": "^4.1.1",
+    "@types/node": "18.15.11",
+    "@types/react": "18.0.31",
+    "@types/react-dom": "18.0.11",
+    "autoprefixer": "^10.4.14",
+    "eslint": "8.38.0",
+    "eslint-config-next": "13.3.0",
+    "postcss": "^8.4.21",
+    "tailwindcss": "^3.3.1",
+    "typescript": "5.0.3"
+  },
+  "browser": {
+    "crypto": false
+  }
+}
