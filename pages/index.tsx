@@ -33,7 +33,7 @@ const Home: NextPage = () => {
     
     <div className="flex min-h-screen items-center justify-center bg-[#000000]">
       <Head>
-        <title>Database connection</title>
+        <title>Database disconnection</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       
